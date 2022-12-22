@@ -4,7 +4,7 @@ import Logo from "../../assets/img/logo.png";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
-  const authenticated = true;
+  const authenticated = false;
 
   return (
     <nav className={styles.navbar}>
@@ -14,11 +14,14 @@ function Navbar() {
       </div>
       <ul>
         <li>
-          <Link to="/">Join a sport</Link>
+          <Link to="/">Home</Link>
         </li>
         {authenticated ? (
           //Empty tags as it is not allowed to have more than one child component <></>
           <>
+            <li>
+              <Link to="/user/newactivity">New Activity</Link>
+            </li>
             <li>
               <Link to="/user/profile">Profile</Link>
             </li>
