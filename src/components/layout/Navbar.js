@@ -4,7 +4,7 @@ import Logo from "../../assets/img/logo.png";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
-  const authenticated = false;
+  const authenticated = true;
 
   return (
     <nav className={styles.navbar}>
@@ -25,7 +25,7 @@ function Navbar() {
             <li>
               <Link to="/user/profile">Profile</Link>
             </li>
-            <li>Exit</li>
+            <li>Log out</li>
           </>
         ) : (
           <>
