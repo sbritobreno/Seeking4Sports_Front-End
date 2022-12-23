@@ -1,3 +1,14 @@
+const username = {
+    "id": "1",
+    "name": "Breno",
+    "age": "25",
+    "phone": "+123 123 123",
+    "email": "breno.sport@hotmail.com",
+    "username": "sbritobreno",
+    "password": "123",
+    "image": "https://griffinoffice.ie/wp-content/uploads/2015/06/Generic-Person-Image.png",
+}
+
 const sports = [
     {
         "id": "1",
@@ -64,4 +75,4 @@ const sports = [
     },
 ]
 
-export {sports};
+export {sports, username};

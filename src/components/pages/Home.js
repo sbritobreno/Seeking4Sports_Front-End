@@ -12,10 +12,6 @@ function Home() {
 
   return (
     <section>
-      <div className={styles.pet_home_header}>
-        <h1>Seeking 4 Sports</h1>
-        <p>See details of each activity and their hosts</p>
-      </div>
       <div className={styles.sport_container}>
         {activities.length > 0 &&
           activities.map((sport) => (

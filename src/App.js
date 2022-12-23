@@ -10,6 +10,8 @@ import Container from './components/layout/Container'
 import Home from './components/pages/Home'
 import Login from './components/pages/Auth/Login'
 import Register from './components/pages/Auth/Register'
+import NewActivity from './components/pages/Sport/NewActivity'
+import Profile from './components/pages/User/Profile'
 
 /* context */
 import {UserProvider} from './context/UserContext'
@@ -24,6 +26,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/user/newactivity" element={<NewActivity />} />
+            <Route path="/user/profile" element={<Profile />} />
           </Routes>
         </Container>
         <Footer />

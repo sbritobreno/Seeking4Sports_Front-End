@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../../assets/img/logo.png";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
-  const authenticated = true;
+  const [authenticated, setAuth] = useState(true);
+
+  function logout(){
+    setAuth(false);
+  }
 
   return (
     <nav className={styles.navbar}>
@@ -25,7 +29,7 @@ function Navbar() {
             <li>
               <Link to="/user/profile">Profile</Link>
             </li>
-            <li>Log out</li>
+            <li onClick={logout}>Log out</li>
           </>
         ) : (
           <>
