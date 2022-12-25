@@ -27,6 +27,9 @@ function Navbar() {
               <Link to="/user/newactivity">New Activity</Link>
             </li>
             <li>
+              <Link to="/user/myactivities">My Activities</Link>
+            </li>
+            <li>
               <Link to="/user/profile">Profile</Link>
             </li>
             <li onClick={logout}>Log out</li>
