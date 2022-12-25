@@ -1,66 +1,93 @@
+.search_box {
+  margin: 10px;
+  text-align: center;
+}
+
+.search {
+  height: 2.5em;
+  width: 20em;
+  text-align: center;
+  border-radius: 5px;
+  color: #2d1b42;
+  font-size: 16px;
+  
+  border: 2px solid #2d1b42;
+}
+
 .sport_home_header {
-    margin-bottom: 2em;
-  }
-  
-  .sport_home_header h1 {
-    margin-bottom: 0.3em;
-  }
-  
-  .sport_container {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-  
-  .sport_card {
-    width: 22%;
-    margin: 1.5%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .sport_card_image {
-    background-size: cover;
-    background-position: center;
-    height: 225px;
-    width: 100%;
-    margin-bottom: 1.2em;
-  }
-  
-  .sport_card h3 {
-    color: #16479d;
-    margin-bottom: 1em;
-    font-size: 1.6em;
-    padding: 8px;
-  }
-  
-  .sport_card p {
-    margin-bottom: 1em;
-  }
-  
-  .sport_card a {
-    border-radius: 8px;
-    color: #16479d;
-    background-color: #ffd400;
-    border: none;
-    min-width: 100px;
-    padding: 15px;
-    width: 100%;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .sport_card a:hover {
-    background-color: #e7c30d;
-    color: #fff;
-  }
-  
-  .adopted_text {
-    font-weight: bold;
-    color: #25b456;
-    padding: 15px;
-  }
-  
+  text-align: center;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #2d1b42;
+}
+
+.sport_home_header h1 {
+  margin-bottom: 0.5em;
+}
+
+.sport_home_header p {
+  margin-bottom: 1.5em;
+}
+
+.sport_container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.sport_card {
+  width: 30%;
+  margin: 1.5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid #2d1b42;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.sport_card_image {
+  background-size: cover;
+  background-position: center;
+  height: 225px;
+  width: 100%;
+  margin-bottom: 1em;
+  border-radius: 10px;
+}
+
+.sport_card h3 {
+  color: #2d1b42;
+  margin-bottom: .5em;
+  font-size: 1.5em;
+  padding: 5px;
+}
+
+.sport_card p {
+  margin-bottom: .7em;
+}
+
+.sport_card a {
+  border-radius: 10px;
+  color: #fff;
+  background-color: #2d1b42;
+  border: 1px solid #2d1b42;
+  min-width: 100px;
+  padding: 15px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.sport_card a:hover {
+  background-color: #fff;
+  color: #2d1b42;
+  border: 1px solid #2d1b42;
+}
+
+.group_full_text {
+  font-weight: bold;
+  color: #25b456;
+  padding: 15px;
+}

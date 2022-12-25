@@ -82,26 +82,6 @@ const sports = [
     members: [{ user: "sbritobreno"}, { user: "jefflima"}],
     total_players: 10,
   },
-  {
-    id: "1",
-    host: "sbritobreno",
-    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Football_in_Bloomington%2C_Indiana%2C_1996.jpg",
-    sport: "Futball",
-    date: "Thrusday 7pm",
-    location: "Dublin 7",
-    members: [{ user: "sbritobreno"}, { user: "jefflima"}],
-    total_players: 10,
-  },
-  {
-    id: "1",
-    host: "sbritobreno",
-    image: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Football_in_Bloomington%2C_Indiana%2C_1996.jpg",
-    sport: "Futball",
-    date: "Thrusday 7pm",
-    location: "Dublin 7",
-    members: [{ user: "sbritobreno"}, { user: "jefflima"}],
-    total_players: 10,
-  },
 ];
 
 export { sports, username };

@@ -12,6 +12,18 @@ function Home() {
 
   return (
     <section>
+      <div className={styles.sport_home_header}>
+        <h1>Join today a group a players and start playing what you love!</h1>
+        <p>See details of each activity and their members.</p>
+      </div>
+      <div className={styles.search_box}>
+        <input
+          className={styles.search}
+          type="search"
+          placeholder="Search Sports"
+          onChange={{}}
+        />
+      </div>
       <div className={styles.sport_container}>
         {activities.length > 0 &&
           activities.map((sport) => (
@@ -36,7 +48,7 @@ function Home() {
               {sport.total_players - sport.members.length > 0 ? (
                 <Link to={`sport/${sport.id}`}>Details</Link>
               ) : (
-                <p className={styles.adopted_text}>Currently full</p>
+                <p className={styles.group_full_text}>Currently full</p>
               )}
             </div>
           ))}
