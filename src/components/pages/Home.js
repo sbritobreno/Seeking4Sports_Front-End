@@ -24,11 +24,20 @@ function Home() {
               ></div>
               <h3>{sport.sport}</h3>
               <p>
-                <span className="bold">Members:</span> {sport.players}
+                <span className="bold">Date:</span> {sport.date}
               </p>
               <p>
-                <span className="bold">Total:</span> {sport.total}
+                <span className="bold">Location:</span> {sport.location}
               </p>
+              <p>
+                <span className="bold">Missing:</span>{" "}
+                {sport.total_players - sport.members.length} players
+              </p>
+              {sport.total_players - sport.members.length > 0 ? (
+                <Link to={`sport/${sport.id}`}>Details</Link>
+              ) : (
+                <p className={styles.adopted_text}>Currently full</p>
+              )}
             </div>
           ))}
         {activities.length === 0 && <p>There is no activities :/</p>}

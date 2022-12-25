@@ -12,6 +12,7 @@ import Login from './components/pages/Auth/Login'
 import Register from './components/pages/Auth/Register'
 import NewActivity from './components/pages/Sport/NewActivity'
 import MyActivities from './components/pages/Sport/MyActivities'
+import ActivityDetails from './components/pages/Sport/ActivityDetails'
 import Profile from './components/pages/User/Profile'
 
 /* context */
@@ -30,6 +31,7 @@ function App() {
             <Route path="/user/newactivity" element={<NewActivity />} />
             <Route path="/user/myactivities" element={<MyActivities />} />
             <Route path="/user/profile" element={<Profile />} />
+            <Route path="/sport/:id" element={<ActivityDetails />} />
           </Routes>
         </Container>
         <Footer />
