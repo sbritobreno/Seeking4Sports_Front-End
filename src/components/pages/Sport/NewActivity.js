@@ -1,37 +1,107 @@
-import Input from '../../form/Input'
-import { Link } from 'react-router-dom'
-import styles from '../../form/Form.module.css'
+import { useState } from "react";
+import Input from "../../form/Input";
+import formStyles from "../../form/Form.module.css";
+import styles from "./AddPet.module.css";
+import Select from "../../form/Select";
 
 function CreateActivity() {
+  const [activity, setActivity] = useState({});
+  const [preview, setPreview] = useState("");
+  const sports = ["Football", "VoleyBall", "Basketball"];
+  const weekdays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thrusday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
-    function handleChange(e) {
-    }
+  function onFileChange(e) {
+    setPreview(e.target.files[0]);
+    setActivity({ ...activity, [e.target.name]: e.target.files[0] });
+  }
 
-    function handleSubmit(e) {
-    }
+  function handleChange(e) {
+    setActivity({ ...activity, [e.target.name]: e.target.value });
+  }
 
-    return (
-        <section className={styles.form_container}>
-            <h1>New Activity</h1>
-            <form onSubmit={handleSubmit}>
-                <Input 
-                    text= "Sport"
-                    type="text"
-                    name="sport"
-                    placeholder="Type the sport"
-                    handleOnChange={handleChange}                
-                />
-                 <Input 
-                    text= "Date"
-                    type="date"
-                    name="date"
-                    placeholder="Type the date"
-                    handleOnChange={handleChange}                
-                />
-                <input type="submit" value="Create" />
-            </form>
-        </section>
-    )
+  function handleSport(e) {
+    setActivity({...activity, sport: e.target.options[e.target.selectedIndex].text});
+  }
+
+  function handleDate(e) {
+    setActivity({...activity, date: e.target.options[e.target.selectedIndex].text});
+  }
+
+  function submit(e) {
+    e.preventDefault();
+  }
+
+  return (
+    <section>
+      <div className={styles.addpet_header}>
+        <h1>Create a New Activity</h1>
+        <p>It will be available on Home page for others users</p>
+      </div>
+
+      <form onSubmit={submit} className={formStyles.form_container}>
+        <div className={formStyles.preview_pet_images}>
+          {(activity.image || preview) && (
+            <img
+              src={preview ? URL.createObjectURL(preview) : activity.image}
+              alt="Sport_Image"
+            />
+          )}
+        </div>
+        <Input
+          text="Sport Image"
+          type="file"
+          name="image"
+          handleOnChange={onFileChange}
+        />
+        <Select
+          text="Sport"
+          name="sport"
+          options={sports}
+          handleOnChange={handleSport}
+          value={activity.sport || ""}
+        />
+        <Select
+          name="Date"
+          text="date"
+          options={weekdays}
+          handleOnChange={handleDate}
+          value={activity.date || ""}
+        />
+        <Input
+          text="Time"
+          type="Time"
+          name="time"
+          handleOnChange={handleChange}
+          value={activity.time || ""}
+        />
+        <Input
+          text="Location"
+          type="text"
+          name="location"
+          placeholder="Type the location"
+          handleOnChange={handleChange}
+          value={activity.location || ""}
+        />
+        <Input
+          text="Total Players"
+          type="number"
+          name="total_players"
+          placeholder="How many players does it need?"
+          handleOnChange={handleChange}
+          value={activity.total_players || ""}
+        />
+        <input type="submit" value="Create" />
+      </form>
+    </section>
+  );
 }
 
 export default CreateActivity;
