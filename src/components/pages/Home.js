@@ -5,10 +5,19 @@ import { sports } from "../objs";
 
 function Home() {
   const [activities, setActivities] = useState([]);
+  const [searchfield, setSearchfield] = useState("");
+  const filteredSports = activities.filter((sport) => {
+    return sport.sport.toLowerCase().includes(searchfield.toLowerCase());
+  });
 
   useEffect(() => {
     setActivities(sports);
   }, []);
+
+  function onSearchChange(event) {
+    setSearchfield(event.target.value);
+  }
+
 
   return (
     <section>
@@ -21,12 +30,12 @@ function Home() {
           className={styles.search}
           type="search"
           placeholder="Search Sports"
-          onChange={{}}
+          onChange={onSearchChange}
         />
       </div>
       <div className={styles.sport_container}>
         {activities.length > 0 &&
-          activities.map((sport) => (
+          filteredSports.map((sport) => (
             <div className={styles.sport_card} key={sport.id}>
               <div
                 style={{
@@ -52,7 +61,7 @@ function Home() {
               )}
             </div>
           ))}
-        {activities.length === 0 && <p>There is no activities :/</p>}
+        {filteredSports.length === 0 && <p>No activities found :/</p>}
       </div>
     </section>
   );
