@@ -3,20 +3,11 @@ import Input from "../../form/Input";
 import formStyles from "../../form/Form.module.css";
 import styles from "./AddPet.module.css";
 import Select from "../../form/Select";
+import { sportsOptions, weekdays } from "../../objs";
 
 function CreateActivity() {
   const [activity, setActivity] = useState({});
   const [preview, setPreview] = useState("");
-  const sports = ["Football", "VoleyBall", "Basketball"];
-  const weekdays = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thrusday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
 
   function onFileChange(e) {
     setPreview(e.target.files[0]);
@@ -28,15 +19,25 @@ function CreateActivity() {
   }
 
   function handleSport(e) {
-    setActivity({...activity, sport: e.target.options[e.target.selectedIndex].text});
+    setActivity({
+      ...activity,
+      sport: e.target.options[e.target.selectedIndex].text,
+    });
   }
 
   function handleDate(e) {
-    setActivity({...activity, date: e.target.options[e.target.selectedIndex].text});
+    setActivity({
+      ...activity,
+      date: e.target.options[e.target.selectedIndex].text,
+    });
   }
 
   function submit(e) {
     e.preventDefault();
+    registerNewActivity(activity)
+  }
+
+  async function registerNewActivity(sport) {
   }
 
   return (
@@ -47,7 +48,7 @@ function CreateActivity() {
       </div>
 
       <form onSubmit={submit} className={formStyles.form_container}>
-        <div className={formStyles.preview_pet_images}>
+        <div className={formStyles.preview_sport_images}>
           {(activity.image || preview) && (
             <img
               src={preview ? URL.createObjectURL(preview) : activity.image}
@@ -64,7 +65,7 @@ function CreateActivity() {
         <Select
           text="Sport"
           name="sport"
-          options={sports}
+          options={sportsOptions}
           handleOnChange={handleSport}
           value={activity.sport || ""}
         />
@@ -97,6 +98,14 @@ function CreateActivity() {
           placeholder="How many players does it need?"
           handleOnChange={handleChange}
           value={activity.total_players || ""}
+        />
+        <Input
+          text="Short Description"
+          type="text"
+          name="description"
+          placeholder="Type here important info about this activity"
+          handleOnChange={handleChange}
+          value={activity.description || ""}
         />
         <input type="submit" value="Create" />
       </form>

@@ -31,14 +31,15 @@
   font-weight: bold;
 }
 
-/* form de activities */
-.preview_pet_images {
+/* activities */
+.preview_sport_images {
   display: flex;
   justify-content: center;
   margin: 1em;
 }
 
-.preview_pet_images img {
-  width: 15em;
-  height: 15em;
+.preview_sport_images img {
+  width: 10em;
+  height: 10em;
+  border-radius: 10px;
 }

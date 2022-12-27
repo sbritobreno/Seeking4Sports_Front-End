@@ -37,7 +37,6 @@
   width: 30%;
   margin: 1.5%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   text-align: center;
   border: 1px solid #2d1b42;
@@ -85,6 +84,9 @@
   background-color: #fff;
   color: #2d1b42;
   border: 1px solid #2d1b42;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .group_full_text {

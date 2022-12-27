@@ -1,6 +1,5 @@
 import styles from "./ActivityDetails.module.css";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
 import { sports } from "../../objs";
 
 function ActivityDetails() {

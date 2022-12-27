@@ -49,26 +49,40 @@
 }
 
 .actions {
+  display: flex;
+  flex-direction: column;
   margin-left: auto;
 }
 
 .actions a,
 .actions button {
+  color: #2d1b42;
+  border: 2px solid #2d1b42;
+  background-color: #fff;
   text-decoration: none;
-  color: #16479d;
-  border: 2px solid #16479d;
   border-radius: 5px;
   padding: 7px 12px;
-  background-color: #fff;
-  margin-left: 1em;
+  margin: 0.5em;
   cursor: pointer;
   transition: 0.3s;
-  font-size: 12px;
+  font-size: 16px;
+}
+
+.actions .btn1:hover {
+  background-color: #1c8a42;
+  border: 2px solid #1c8a42;
+  color: #fff;
+}
+
+.actions .btn2:hover {
+  background-color: #db1a2e;
+  border: 2px solid #db1a2e;
+  color: #fff;
 }
 
 .actions a:hover,
 .actions button:hover {
-  background-color: #16479d;
+  background-color: #2d1b42;
   color: #fff;
 }
 
@@ -82,11 +96,22 @@
   background-color: #25b456;
 }
 
-/* my adoptions */
-.contacts {
-  margin-left: 2em;
+.mysport_image {
+  width: 150px;
+  height: 150px;
+  border-radius: 10%;
 }
 
-.contacts p {
-  margin-bottom: 0.5em;
+/* my adoptions */
+.details {
+  margin-left: 2em;
+  margin: 15px;
+}
+
+.details p {
+  margin: 15px;
+}
+
+.details h3 {
+  margin: 15px;
 }
