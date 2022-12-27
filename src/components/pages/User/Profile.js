@@ -6,12 +6,14 @@ import { username } from "../../objs";
 
 function Profile() {
   const [user, setUser] = useState({});
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
-    setUser(username);
+    setUser(username[0]);
   }, []);
 
   function onFileChange(e) {
+    setPreview(e.target.files[0]);
     setUser({ ...user, [e.target.name]: e.target.files[0] });
   }
 
@@ -27,14 +29,18 @@ function Profile() {
     <section>
       <div className={styles.profile_header}>
         <h1>Profile</h1>
-        <img
-          src={user.image}
-          alt={"Profile img"}
-        />
+        <div className={formStyles.preview_images}>
+        {(user.image || preview) && (
+          <img
+            src={preview ? URL.createObjectURL(preview) : user.image}
+            alt="Profile img"
+          />
+        )}
+        </div>
       </div>
       <form onSubmit={handleSubmit} className={formStyles.form_container}>
         <Input
-          text="Imagem"
+          text="Image"
           type="file"
           name="image"
           handleOnChange={onFileChange}
@@ -43,9 +49,8 @@ function Profile() {
           text="E-mail"
           type="email"
           name="email"
-          placeholder="Type your email"
-          handleOnChange={handleChange}
           value={user.email || ""}
+          readonly={"readonly"}
         />
         <Input
           text="Name"
@@ -54,6 +59,13 @@ function Profile() {
           placeholder="Type your name"
           handleOnChange={handleChange}
           value={user.name || ""}
+        />
+        <Input
+          text="Username"
+          type="text"
+          name="username"
+          value={user.username || ""}
+          readonly={"readonly"}
         />
         <Input
           text="Phone"
@@ -77,7 +89,8 @@ function Profile() {
           placeholder="Type your password again"
           handleOnChange={handleChange}
         />
-        <input type="submit" value="Edit" />
+        <input type="submit" name="button_1" value="Edit" />
+        <input className={formStyles.btn2} type="submit" name="button_2" value="Delete Account" />
       </form>
     </section>
   );

@@ -13,7 +13,6 @@ const username = [
   {
     id: "1",
     name: "Breno",
-    age: "25",
     phone: "+123 123 123",
     email: "breno.sport@hotmail.com",
     username: "sbritobreno",
@@ -24,7 +23,6 @@ const username = [
   {
     id: "2",
     name: "Jeff",
-    age: "25",
     phone: "+123 123 124",
     email: "jeff.sport@hotmail.com",
     username: "jefflima",

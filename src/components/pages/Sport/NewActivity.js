@@ -48,7 +48,7 @@ function CreateActivity() {
       </div>
 
       <form onSubmit={submit} className={formStyles.form_container}>
-        <div className={formStyles.preview_sport_images}>
+        <div className={formStyles.preview_images}>
           {(activity.image || preview) && (
             <img
               src={preview ? URL.createObjectURL(preview) : activity.image}
@@ -70,8 +70,8 @@ function CreateActivity() {
           value={activity.sport || ""}
         />
         <Select
-          name="Date"
-          text="date"
+          text="Date"
+          name="date"
           options={weekdays}
           handleOnChange={handleDate}
           value={activity.date || ""}
