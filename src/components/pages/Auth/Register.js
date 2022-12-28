@@ -26,6 +26,13 @@ function Register() {
                     handleOnChange={handleChange}
                 />
                 <Input
+                    text="Username"
+                    type="text"
+                    name="username"
+                    placeholder="Create a unique username"
+                    handleOnChange={handleChange}
+                />
+                <Input
                     text="Phone"
                     type="text"
                     name="phone"

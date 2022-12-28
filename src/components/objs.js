@@ -18,7 +18,7 @@ const username = [
     username: "sbritobreno",
     password: "123",
     image:
-      "https://griffinoffice.ie/wp-content/uploads/2015/06/Generic-Person-Image.png",
+      "https://i.stack.imgur.com/l60Hf.png",
   },
   {
     id: "2",
@@ -28,7 +28,7 @@ const username = [
     username: "jefflima",
     password: "123",
     image:
-      "https://griffinoffice.ie/wp-content/uploads/2015/06/Generic-Person-Image.png",
+      "https://i.stack.imgur.com/l60Hf.png",
   },
 ];
 

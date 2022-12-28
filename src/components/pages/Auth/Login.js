@@ -34,9 +34,8 @@ function Login() {
                 />
                 <input type="submit" value="Login" />
             </form>
-            <p>
-                Do not have an account? <Link to="/register">Click here.</Link>
-            </p>
+            <p>Do not have an account? <Link to="/register">Click here.</Link></p>
+            <p>Forgot your password? <Link to="/register">Click here.</Link></p>
         </section>
     )
 }
