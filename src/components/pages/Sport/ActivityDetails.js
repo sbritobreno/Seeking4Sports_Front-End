@@ -2,9 +2,11 @@ import styles from "./ActivityDetails.module.css";
 import { useState, useEffect } from "react";
 import { sports } from "../../objs";
 import { FaComments } from "react-icons/fa";
+import Chat from "./Chat"
 
 function ActivityDetails() {
   const [activity, setActivity] = useState({});
+  const [chatOpened, setChatOpened] = useState(false);
 
   useEffect(() => {
     setActivity(sports[1]);
@@ -13,15 +15,26 @@ function ActivityDetails() {
   function isAMember() {
     return true;
   }
+
+  function openChat() {
+    setChatOpened(true);
+  }
+
+  function closeChat() {
+    setChatOpened(false);
+  }
+
   const style = {color: "#fff", fontSize: "2em", margin: "20%"}
 
   return (
     <>
+      
+      {chatOpened ? (<Chat closeChat={closeChat}/>) : (<></>)}
       {activity.sport && (
         <section className={styles.activity_details_container}>
           <div className={styles.activity_details_header}>
             <h1 className={styles.activity_details_h1}>Details about this activity :)</h1>
-            <div className={styles.new_message_icon}><FaComments style={style}/></div>
+            <div className={styles.new_message_icon}><FaComments style={style} onClick={openChat}/></div>
           </div>
           <div className={styles.activity_images}>
             <img src={activity.image} alt={activity.sport} />
@@ -65,7 +78,7 @@ function ActivityDetails() {
             <div className={styles.btns}>
               {isAMember() ? (
                 <>
-                  <button className={styles.btn1} onClick={{}}>
+                  <button className={styles.btn1} onClick={openChat}>
                     Chat
                   </button>
                   {activity.host === "sbritobreno" ? (

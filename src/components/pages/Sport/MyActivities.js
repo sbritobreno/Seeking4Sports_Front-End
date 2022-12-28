@@ -2,16 +2,27 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { sports } from "../../objs";
+import Chat from "./Chat"
 
 function MyActivities() {
   const [activities, setActivities] = useState([]);
+  const [chatOpened, setChatOpened] = useState(false);
 
   useEffect(() => {
     setActivities(sports);
   }, []);
 
+  function openChat() {
+    setChatOpened(true);
+  }
+
+  function closeChat() {
+    setChatOpened(false);
+  }
+
   return (
     <section>
+      {chatOpened ? (<Chat closeChat={closeChat}/>) : (<></>)}
       <div className={styles.sportslist_container}>
         {activities.length > 0 &&
           activities.map((sport) => (
@@ -33,7 +44,7 @@ function MyActivities() {
                 </p>
               </div>
               <div className={styles.actions}>
-                <button className={styles.btn1} onClick={{}}>
+                <button className={styles.btn1} onClick={openChat}>
                   Chat
                 </button>
                 {sport.host === "sbritobreno" ? (
