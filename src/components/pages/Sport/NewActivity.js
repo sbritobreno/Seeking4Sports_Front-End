@@ -43,7 +43,7 @@ function CreateActivity() {
     <section>
       <div className={styles.newactivity_header}>
         <h1>Create a New Activity</h1>
-        <p>It will be available on Home page for others users</p>
+        <p>It will be available on the Home page for other users</p>
       </div>
 
       <form onSubmit={submit} className={formStyles.form_container}>

@@ -21,14 +21,14 @@ function Home() {
   return (
     <section>
       <div className={styles.sport_home_header}>
-        <h1>Join today a group a players and start playing what you love!</h1>
+        <h1>Join a group of players and start playing what you love!</h1>
         <p>See details of each activity and their members.</p>
       </div>
       <div className={styles.search_box}>
         <input
           className={styles.search}
           type="search"
-          placeholder="Search Sports"
+          placeholder="Search Sport"
           onChange={onSearchChange}
         />
       </div>

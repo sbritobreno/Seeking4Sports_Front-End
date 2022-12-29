@@ -5,10 +5,18 @@ import styles from "../../form/Form.module.css";
 import { Context } from "../../../context/UserContext";
 
 function Login() {
-  function handleChange(e) {}
+  const [user, setUser] = useState({});
+  const { login } = useContext(Context);
 
-  function handleSubmit(e) {}
+  function handleChange(e) {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    login(user);
+  }
+  
   return (
     <section className={styles.form_container}>
       <h1>Login</h1>

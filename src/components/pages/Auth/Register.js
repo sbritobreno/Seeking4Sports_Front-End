@@ -5,9 +5,17 @@ import { Link } from "react-router-dom";
 import { Context } from "../../../context/UserContext";
 
 function Register() {
-  function handleChange(e) {}
+  const [user, setUser] = useState({});
+  const { register } = useContext(Context);
 
-  function handleSubmit(e) {}
+  function handleChange(e) {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    register(user);
+  }
 
   return (
     <section className={styles.form_container}>

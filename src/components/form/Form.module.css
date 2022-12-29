@@ -5,6 +5,10 @@
   border-radius: 15px;
 }
 
+h1 {
+  text-align: center;
+}
+
 .form_container input[name="button_1"],
 .form_container input[type="submit"] {
   border-radius: 8px;

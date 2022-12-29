@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useContext, useState } from "react";
-import Logo from "../../assets/img/logo.png";
+import Logo from "../../assets/img/S4S_logo.png";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
