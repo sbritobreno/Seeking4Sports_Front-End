@@ -1,9 +1,8 @@
 import styles from "./Chat.module.css";
-import { useState, useEffect } from "react";
-import { sports, username } from "../../objs";
+import { username } from "../../objs";
 import { FaComments } from "react-icons/fa";
 
-function Chat({closeChat}) {
+function Chat({toggleChat}) {
   const style = { color: "#fff", fontSize: "0.8em", marginRight: "10px" };
   const messages = [
     {
@@ -28,7 +27,7 @@ function Chat({closeChat}) {
   return (
     <section>
       <div className={styles.chat}>
-        <button className={styles.close_chat} onClick={closeChat}>&times;</button>
+        <button className={styles.close_chat} onClick={() => toggleChat(false)}>&times;</button>
         <h1 className={styles.chat_header}>
           <FaComments style={style} />
           Group Chat
@@ -57,7 +56,7 @@ function Chat({closeChat}) {
           onChange={{}}
         ></input>
       </div>
-      <div className={styles.overlay}></div>
+      <div className={styles.overlay} onClick={() => toggleChat(false)}></div>
     </section>
   );
 }

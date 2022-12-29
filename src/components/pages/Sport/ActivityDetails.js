@@ -2,11 +2,15 @@ import styles from "./ActivityDetails.module.css";
 import { useState, useEffect } from "react";
 import { sports } from "../../objs";
 import { FaComments } from "react-icons/fa";
-import Chat from "./Chat"
+import Chat from "./Chat";
+import WarningMessage from "./WarningMessage";
 
 function ActivityDetails() {
   const [activity, setActivity] = useState({});
   const [chatOpened, setChatOpened] = useState(false);
+  const [warningOpen, setWarningOpen] = useState(false);
+  const [btnText, setBtnText] = useState("");
+  const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} this activity ?`;
 
   useEffect(() => {
     setActivity(sports[1]);
@@ -16,25 +20,37 @@ function ActivityDetails() {
     return true;
   }
 
-  function openChat() {
-    setChatOpened(true);
+  function toggleChat(value) {
+    setChatOpened(value);
   }
 
-  function closeChat() {
-    setChatOpened(false);
+  function toggleWarningMessage(value) {
+    setWarningOpen(value);
   }
 
-  const style = {color: "#fff", fontSize: "2em", margin: "20%"}
+  const style = { color: "#fff", fontSize: "2em", margin: "20%" };
 
   return (
     <>
-      
-      {chatOpened ? (<Chat closeChat={closeChat}/>) : (<></>)}
+      {chatOpened ? <Chat toggleChat={toggleChat} /> : <></>}
+      {warningOpen ? (
+        <WarningMessage
+          toggleWarningMessage={toggleWarningMessage}
+          btnText={btnText}
+          warningMessage={warningMessage}
+        />
+      ) : (
+        <></>
+      )}
       {activity.sport && (
         <section className={styles.activity_details_container}>
           <div className={styles.activity_details_header}>
-            <h1 className={styles.activity_details_h1}>Details about this activity :)</h1>
-            <div className={styles.new_message_icon}><FaComments style={style} onClick={openChat}/></div>
+            <h1 className={styles.activity_details_h1}>
+              Details about this activity :)
+            </h1>
+            <div className={styles.new_message_icon}>
+              <FaComments style={style} onClick={() => toggleChat(true)} />
+            </div>
           </div>
           <div className={styles.activity_images}>
             <img src={activity.image} alt={activity.sport} />
@@ -78,15 +94,30 @@ function ActivityDetails() {
             <div className={styles.btns}>
               {isAMember() ? (
                 <>
-                  <button className={styles.btn1} onClick={openChat}>
+                  <button
+                    className={styles.btn1}
+                    onClick={() => toggleChat(true)}
+                  >
                     Chat
                   </button>
                   {activity.host === "sbritobreno" ? (
-                    <button className={styles.btn2} onClick={{}}>
+                    <button
+                      className={styles.btn2}
+                      onClick={() => {
+                        toggleWarningMessage(true);
+                        setBtnText("Delete");
+                      }}
+                    >
                       Delete Group
                     </button>
                   ) : (
-                    <button className={styles.btn2} onClick={{}}>
+                    <button
+                      className={styles.btn2}
+                      onClick={() => {
+                        toggleWarningMessage(true);
+                        setBtnText("Leave");
+                      }}
+                    >
                       Leave Group
                     </button>
                   )}

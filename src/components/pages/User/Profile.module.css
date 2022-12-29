@@ -3,3 +3,14 @@
   margin-bottom: 1em;
 }
 
+.btn2 {
+  background-color: #fff;
+  color: #2d1b42;
+  border: 2px solid #2d1b42;
+}
+
+.btn2:hover {
+  background-color: #db1a2e;
+  border: 2px solid #db1a2e;
+  color: #fff;
+}

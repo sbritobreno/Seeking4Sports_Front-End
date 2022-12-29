@@ -3,10 +3,14 @@ import styles from "./Profile.module.css";
 import formStyles from "../../form/Form.module.css";
 import Input from "../../form/Input";
 import { username } from "../../objs";
+import WarningMessage from "../Sport/WarningMessage";
 
 function Profile() {
   const [user, setUser] = useState({});
   const [preview, setPreview] = useState("");
+  const [warningOpen, setWarningOpen] = useState(false);
+  const [btnText, setBtnText] = useState('');
+  const warningMessage = 'Are you sure you want to delete your account ?';
 
   useEffect(() => {
     setUser(username[0]);
@@ -25,8 +29,13 @@ function Profile() {
     e.preventDefault();
   }
 
+  function toggleWarningMessage(value) {
+    setWarningOpen(value)
+  }
+
   return (
     <section>
+      {warningOpen ? (<WarningMessage toggleWarningMessage={toggleWarningMessage} btnText={btnText} warningMessage={warningMessage}/>) : (<></>)}
       <div className={styles.profile_header}>
         <h1>Profile</h1>
         <div className={formStyles.preview_images}>
@@ -90,7 +99,7 @@ function Profile() {
           handleOnChange={handleChange}
         />
         <input type="submit" name="button_1" value="Edit" />
-        <input className={formStyles.btn2} type="submit" name="button_2" value="Delete Account" />
+        <button className={styles.btn2} onClick={() => {toggleWarningMessage(true); setBtnText('Delete')}}>Delete Account</button>
       </form>
     </section>
   );

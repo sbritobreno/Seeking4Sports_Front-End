@@ -3,26 +3,31 @@ import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { sports } from "../../objs";
 import Chat from "./Chat"
+import WarningMessage from "./WarningMessage";
 
 function MyActivities() {
   const [activities, setActivities] = useState([]);
   const [chatOpened, setChatOpened] = useState(false);
+  const [warningOpen, setWarningOpen] = useState(false);
+  const [btnText, setBtnText] = useState('');
+  const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} this activity ?`;
 
   useEffect(() => {
     setActivities(sports);
   }, []);
 
-  function openChat() {
-    setChatOpened(true);
+  function toggleChat(value) {
+    setChatOpened(value);
   }
 
-  function closeChat() {
-    setChatOpened(false);
+  function toggleWarningMessage(value) {
+    setWarningOpen(value)
   }
 
   return (
     <section>
-      {chatOpened ? (<Chat closeChat={closeChat}/>) : (<></>)}
+      {chatOpened ? (<Chat toggleChat={toggleChat}/>) : (<></>)}
+      {warningOpen ? (<WarningMessage toggleWarningMessage={toggleWarningMessage} btnText={btnText} warningMessage={warningMessage}/>) : (<></>)}
       <div className={styles.sportslist_container}>
         {activities.length > 0 &&
           activities.map((sport) => (
@@ -44,13 +49,13 @@ function MyActivities() {
                 </p>
               </div>
               <div className={styles.actions}>
-                <button className={styles.btn1} onClick={openChat}>
+                <button className={styles.btn1} onClick={() => toggleChat(true)}>
                   Chat
                 </button>
                 {sport.host === "sbritobreno" ? (
-                  <button className={styles.btn2} onClick={{}}>Delete Group</button>
+                  <button className={styles.btn2} onClick={() => {toggleWarningMessage(true); setBtnText('Delete')}}>Delete Group</button>
                 ) : (
-                  <button className={styles.btn2} onClick={{}}>Leave Group</button>
+                  <button className={styles.btn2} onClick={() => {toggleWarningMessage(true); setBtnText('Leave')}}>Leave Group</button>
                 )}
               </div>
             </div>
