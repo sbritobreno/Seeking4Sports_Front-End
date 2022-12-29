@@ -13,7 +13,7 @@
 
 .navbar_logo img {
   width: 40px;
-  margin-right: .8em;
+  margin-right: 0.8em;
 }
 
 .navbar ul {
@@ -28,8 +28,8 @@
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  transition: .5s;
-  padding: .5em .8em;
+  transition: 0.5s;
+  padding: 0.5em 0.8em;
   border-radius: 5px;
 }
 

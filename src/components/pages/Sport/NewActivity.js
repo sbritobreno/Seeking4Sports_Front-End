@@ -34,11 +34,10 @@ function CreateActivity() {
 
   function submit(e) {
     e.preventDefault();
-    registerNewActivity(activity)
+    registerNewActivity(activity);
   }
 
-  async function registerNewActivity(sport) {
-  }
+  async function registerNewActivity(sport) {}
 
   return (
     <section>

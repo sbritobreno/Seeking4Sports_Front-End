@@ -9,8 +9,8 @@ function Profile() {
   const [user, setUser] = useState({});
   const [preview, setPreview] = useState("");
   const [warningOpen, setWarningOpen] = useState(false);
-  const [btnText, setBtnText] = useState('');
-  const warningMessage = 'Are you sure you want to delete your account ?';
+  const [btnText, setBtnText] = useState("");
+  const warningMessage = "Are you sure you want to delete your account ?";
 
   useEffect(() => {
     setUser(username[0]);
@@ -30,21 +30,29 @@ function Profile() {
   }
 
   function toggleWarningMessage(value) {
-    setWarningOpen(value)
+    setWarningOpen(value);
   }
 
   return (
     <section>
-      {warningOpen ? (<WarningMessage toggleWarningMessage={toggleWarningMessage} btnText={btnText} warningMessage={warningMessage}/>) : (<></>)}
+      {warningOpen ? (
+        <WarningMessage
+          toggleWarningMessage={toggleWarningMessage}
+          btnText={btnText}
+          warningMessage={warningMessage}
+        />
+      ) : (
+        <></>
+      )}
       <div className={styles.profile_header}>
         <h1>Profile</h1>
         <div className={formStyles.preview_images}>
-        {(user.image || preview) && (
-          <img
-            src={preview ? URL.createObjectURL(preview) : user.image}
-            alt="Profile img"
-          />
-        )}
+          {(user.image || preview) && (
+            <img
+              src={preview ? URL.createObjectURL(preview) : user.image}
+              alt="Profile img"
+            />
+          )}
         </div>
       </div>
       <form onSubmit={handleSubmit} className={formStyles.form_container}>
@@ -99,7 +107,15 @@ function Profile() {
           handleOnChange={handleChange}
         />
         <input type="submit" name="button_1" value="Edit" />
-        <button className={styles.btn2} onClick={() => {toggleWarningMessage(true); setBtnText('Delete')}}>Delete Account</button>
+        <button
+          className={styles.btn2}
+          onClick={() => {
+            toggleWarningMessage(true);
+            setBtnText("Delete");
+          }}
+        >
+          Delete Account
+        </button>
       </form>
     </section>
   );

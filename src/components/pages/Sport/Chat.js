@@ -2,7 +2,7 @@ import styles from "./Chat.module.css";
 import { username } from "../../objs";
 import { FaComments } from "react-icons/fa";
 
-function Chat({toggleChat}) {
+function Chat({ toggleChat }) {
   const style = { color: "#fff", fontSize: "0.8em", marginRight: "10px" };
   const messages = [
     {
@@ -21,13 +21,17 @@ function Chat({toggleChat}) {
   ];
 
   var date = new Date();
-  var current_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate();
-  var current_time = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
+  var current_date =
+    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+  var current_time =
+    date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
   return (
     <section>
       <div className={styles.chat}>
-        <button className={styles.close_chat} onClick={() => toggleChat(false)}>&times;</button>
+        <button className={styles.close_chat} onClick={() => toggleChat(false)}>
+          &times;
+        </button>
         <h1 className={styles.chat_header}>
           <FaComments style={style} />
           Group Chat
@@ -43,7 +47,9 @@ function Chat({toggleChat}) {
               <div>
                 <div className={styles.user_date_msg}>
                   <h4>{username[0].name}</h4>
-                  <p>{current_date} / {current_time}</p>
+                  <p>
+                    {current_date} / {current_time}
+                  </p>
                 </div>
                 <p>{msg.msg}</p>
               </div>

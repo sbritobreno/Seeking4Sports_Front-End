@@ -1,22 +1,22 @@
-import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 /* components */
-import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
-import Container from './components/layout/Container'
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Container from "./components/layout/Container";
 
 /* pages */
-import Home from './components/pages/Home'
-import Login from './components/pages/Auth/Login'
-import Register from './components/pages/Auth/Register'
-import NewActivity from './components/pages/Sport/NewActivity'
-import MyActivities from './components/pages/Sport/MyActivities'
-import ActivityDetails from './components/pages/Sport/ActivityDetails'
-import Profile from './components/pages/User/Profile'
+import Home from "./components/pages/Home/Home";
+import Login from "./components/pages/Auth/Login";
+import Register from "./components/pages/Auth/Register";
+import NewActivity from "./components/pages/Sport/NewActivity";
+import MyActivities from "./components/pages/Sport/MyActivities";
+import ActivityDetails from "./components/pages/Sport/ActivityDetails";
+import Profile from "./components/pages/User/Profile";
 
 /* context */
-import {UserProvider} from './context/UserContext'
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (

@@ -5,8 +5,8 @@
   border-radius: 15px;
 }
 
-.form_container input[name='button_1'],
-.form_container input[type='submit'] {
+.form_container input[name="button_1"],
+.form_container input[type="submit"] {
   border-radius: 8px;
   background-color: #25b456;
   color: #fff;
@@ -19,7 +19,7 @@
   font-weight: bold;
 }
 
-.form_container input[name='button_2'] {
+.form_container input[name="button_2"] {
   border-radius: 8px;
   background-color: #fff;
   color: #2d1b42;
@@ -33,12 +33,12 @@
   margin-top: 0.5em;
 }
 
-.form_container input[name='button_1']:hover,
-.form_container input[type='submit']:hover {
+.form_container input[name="button_1"]:hover,
+.form_container input[type="submit"]:hover {
   background-color: #1c8a42;
 }
 
-.form_container input[name='button_2']:hover {
+.form_container input[name="button_2"]:hover {
   background-color: #db1a2e;
   border: 2px solid #db1a2e;
   color: #fff;

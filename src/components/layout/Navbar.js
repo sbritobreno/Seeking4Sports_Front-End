@@ -6,7 +6,7 @@ import styles from "./Navbar.module.css";
 function Navbar() {
   const [authenticated, setAuth] = useState(true);
 
-  function logout(){
+  function logout() {
     setAuth(false);
   }
 

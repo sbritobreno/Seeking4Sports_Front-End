@@ -1,85 +1,78 @@
-import api from '../utils/api'
-import {useState, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
-import useFlashMessage from './useFlashMEssage'
+import api from "../utils/api";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useFlashMessage from "./useFlashMEssage";
 
-export default function useAuth(){
-    const [authenticated, setAuthenticated] = useState(false)
+export default function useAuth() {
+  const [authenticated, setAuthenticated] = useState(false);
 
-    const {setFlashMessage} = useFlashMessage()
-    const navigate = useNavigate()
+  const { setFlashMessage } = useFlashMessage();
+  const navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-        const token = localStorage.getItem('token')
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      setAuthenticated(true);
+    }
+  }, []);
 
-        if(token){
-            api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
-            setAuthenticated(true)
-        }
-    }, [])
+  async function register(user) {
+    let msgText = "You are now registered!";
+    let msgType = "success";
 
-    async function register(user){
+    try {
+      const data = await api.post("/users/register", user).then((response) => {
+        return response.data;
+      });
 
-        let msgText = 'You are now registered!'
-        let msgType = 'success'
-
-        try {
-            const data = await api.post('/users/register', user).then((response) => {
-                return response.data
-            })
-
-            await authUser(data)
-
-        } catch (error) {
-            msgText = error.response.data.message
-            msgType = 'error'
-        }
-
-        setFlashMessage(msgText, msgType)
+      await authUser(data);
+    } catch (error) {
+      msgText = error.response.data.message;
+      msgType = "error";
     }
 
-      async function login(user) {
-        let msgText = 'You are now logged in!'
-        let msgType = 'success'
+    setFlashMessage(msgText, msgType);
+  }
 
-        try {
-            
-            const data = await api.post('/users/login', user).then((response) => {
-                return response.data
-            })
+  async function login(user) {
+    let msgText = "You are now logged in!";
+    let msgType = "success";
 
-            await authUser(data)
+    try {
+      const data = await api.post("/users/login", user).then((response) => {
+        return response.data;
+      });
 
-        } catch (error) {
-            msgText = error.response.data.message
-            msgType = 'error'
-        }
+      await authUser(data);
+    } catch (error) {
+      msgText = error.response.data.message;
+      msgType = "error";
+    }
 
-        setFlashMessage(msgText, msgType)
+    setFlashMessage(msgText, msgType);
+  }
 
-      }
+  async function authUser(data) {
+    setAuthenticated(true);
 
-      async function authUser(data) {
-        setAuthenticated(true)
+    localStorage.setItem("token", JSON.stringify(data.token));
 
-        localStorage.setItem('token', JSON.stringify(data.token))
-    
-        navigate('/')
-      }
+    navigate("/");
+  }
 
-      function logout() {
-        const msgText = 'You are now logged out!'
-        const msgType = 'success'
+  function logout() {
+    const msgText = "You are now logged out!";
+    const msgType = "success";
 
-        setAuthenticated(false)
-        localStorage.removeItem('token')
-        api.defaults.headers.Authorization = undefined
-        navigate('/')
+    setAuthenticated(false);
+    localStorage.removeItem("token");
+    api.defaults.headers.Authorization = undefined;
+    navigate("/");
 
-        setFlashMessage(msgText, msgType)
+    setFlashMessage(msgText, msgType);
+  }
 
-      }
-
-    return {authenticated, register, logout, login}
+  return { authenticated, register, logout, login };
 }

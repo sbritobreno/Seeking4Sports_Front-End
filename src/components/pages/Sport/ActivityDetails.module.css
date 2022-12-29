@@ -24,7 +24,7 @@
 }
 
 .activity_details_container p {
-  margin-top: .5em;
+  margin-top: 0.5em;
   margin-bottom: 1em;
 }
 
@@ -39,7 +39,7 @@
   margin-bottom: 1em;
 }
 
-button {
+.btns button {
   border-radius: 8px;
   min-height: 2.5rem;
   width: 100%;
@@ -49,19 +49,19 @@ button {
   margin-top: 0.5em;
 }
 
-.btn1 {
+.btns .btn1 {
   background-color: #25b456;
   color: #fff;
   border: 2px solid #25b456;
 }
 
-.btn2 {
+.btns .btn2 {
   background-color: #fff;
   color: #2d1b42;
   border: 2px solid #2d1b42;
 }
 
-.btn1:hover {
+.btns .btn1:hover {
   background-color: #1c8a42;
   border: 2px solid #1c8a42;
 }
@@ -72,9 +72,9 @@ button {
   color: #fff;
 }
 
-.new_message_icon{
+.new_message_icon {
   flex: 0 1 auto;
-  visibility:visible;
+  visibility: visible;
   width: 70px;
   height: 60px;
   margin-left: auto;

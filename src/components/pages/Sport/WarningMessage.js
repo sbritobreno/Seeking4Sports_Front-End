@@ -15,8 +15,13 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage }) {
           <p className={styles.message_p}>{warningMessage}</p>
         </div>
         <div className={styles.btns}>
-          <button className={styles.btn1} onClick={() => toggleWarningMessage(false)}>Cancel</button>
-          <button className={styles.btn2} >{btnText}</button>
+          <button
+            className={styles.btn1}
+            onClick={() => toggleWarningMessage(false)}
+          >
+            Cancel
+          </button>
+          <button className={styles.btn2}>{btnText}</button>
         </div>
       </div>
       <div

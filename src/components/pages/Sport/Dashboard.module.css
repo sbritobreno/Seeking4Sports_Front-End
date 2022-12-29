@@ -41,7 +41,7 @@
 }
 
 .sportslist_row img {
-  margin-right: 1em;
+  margin-right: 2em;
 }
 
 .sportslist_row span {
@@ -54,7 +54,6 @@
   margin-left: auto;
 }
 
-.actions a,
 .actions button {
   color: #2d1b42;
   border: 2px solid #2d1b42;
@@ -80,31 +79,20 @@
   color: #fff;
 }
 
-.actions a:hover,
-.actions button:hover {
-  background-color: #2d1b42;
-  color: #fff;
+/* my adoptions */
+
+.home_header {
+  text-align: center;
 }
 
-.actions .conclude_btn {
-  color: #25b456;
-  border-color: #25b456;
-}
-
-.actions .conclude_btn:hover {
-  color: #fff;
-  background-color: #25b456;
+.home_header h1 {
+  margin-bottom: 0.5em;
 }
 
 .mysport_image {
   width: 150px;
   height: 150px;
   border-radius: 10%;
-}
-
-/* my adoptions */
-.details {
-  margin: 1em;
 }
 
 .details p {

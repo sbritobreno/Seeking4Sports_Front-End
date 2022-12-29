@@ -1,90 +1,101 @@
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
-    z-index: 5;
-  }
-  
-  .warning {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 20em;
-    width: 30em;
-    background-color: #2d1b42;
-    border-radius: 10px;
-    box-shadow: 0 3em 5em rgba(0, 0, 0, 0.3);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .close_warning {
-    position: absolute;
-    top: 0em;
-    right: 0em;
-    margin: 0px;
-    height: 50px;
-    width: 50px;
-    font-size: 2em;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    background: none;
-  }
-  
-  .warning_header {
-    margin: 0.5em;
-    color: #fff;
-    text-align: center;
-  }
-  
-  .message {
-    padding: 0.5em;
-    display: flex;
-    width: auto;
-    height: auto;
-    border: 1px solid #2d1b42;
-    border-radius: 10px;
-    background-color: #fff;
-    margin: 1em;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
 
-  .message_p {
-    text-align: center;
-    font-size: 2em;
-    margin: 0.5em;
-  }
+.warning {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 20em;
+  width: 30em;
+  background-color: #2d1b42;
+  border-radius: 10px;
+  box-shadow: 0 3em 5em rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
 
-  .btns {
-    display: flex;
-    margin: 1em;
-  }
+.close_warning {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+  margin: 0px;
+  height: 50px;
+  width: 50px;
+  font-size: 2em;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
 
-  .btn1 {
-    background-color: #25b456;
-    color: #fff;
-    border: 2px solid #25b456;
-  }
-  
-  .btn2 {
-    background-color: #fff;
-    color: #2d1b42;
-    border: 2px solid #2d1b42;
-  }
-  
-  .btn1:hover {
-    background-color: #1c8a42;
-    border: 2px solid #1c8a42;
-  }
-  
-  .btns .btn2:hover {
-    background-color: #db1a2e;
-    border: 2px solid #db1a2e;
-    color: #fff;
-  }
+.warning_header {
+  margin: 0.5em;
+  color: #fff;
+  text-align: center;
+}
+
+.message {
+  padding: 0.5em;
+  display: flex;
+  width: auto;
+  height: auto;
+  border: 1px solid #2d1b42;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 1em;
+}
+
+.message_p {
+  text-align: center;
+  font-size: 2em;
+  margin: 0.5em;
+}
+
+.btns {
+  display: flex;
+  margin: 1em;
+}
+
+.btns button {
+  border-radius: 8px;
+  min-height: 2.5rem;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+.btn1 {
+  margin-right: 0.5em;
+  background-color: #25b456;
+  color: #fff;
+  border: 2px solid #25b456;
+}
+
+.btn2 {
+  background-color: #fff;
+  color: #2d1b42;
+  border: 2px solid #2d1b42;
+}
+
+.btn1:hover {
+  background-color: #1c8a42;
+  border: 2px solid #1c8a42;
+}
+
+.btns .btn2:hover {
+  background-color: #db1a2e;
+  border: 2px solid #db1a2e;
+  color: #fff;
+}

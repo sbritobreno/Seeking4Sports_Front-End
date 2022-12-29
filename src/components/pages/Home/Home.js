@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Home.module.css";
-import { sports } from "../objs";
+import { sports } from "../../objs";
 
 function Home() {
   const [activities, setActivities] = useState([]);
@@ -17,7 +17,6 @@ function Home() {
   function onSearchChange(event) {
     setSearchfield(event.target.value);
   }
-
 
   return (
     <section>
