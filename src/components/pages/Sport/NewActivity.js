@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "../../form/Input";
 import formStyles from "../../form/Form.module.css";
-import styles from "./AddPet.module.css";
+import styles from "./NewActivity.module.css";
 import Select from "../../form/Select";
 import { sportsOptions, weekdays } from "../../objs";
 
@@ -42,7 +42,7 @@ function CreateActivity() {
 
   return (
     <section>
-      <div className={styles.addpet_header}>
+      <div className={styles.newactivity_header}>
         <h1>Create a New Activity</h1>
         <p>It will be available on Home page for others users</p>
       </div>
