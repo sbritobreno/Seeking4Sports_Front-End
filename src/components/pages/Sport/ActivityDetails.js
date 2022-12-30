@@ -46,7 +46,7 @@ function ActivityDetails() {
         <section className={styles.activity_details_container}>
           <div className={styles.activity_details_header}>
             <h1 className={styles.activity_details_h1}>
-              Details about this activity :)
+              Details about {activity.group_name} :)
             </h1>
             <div className={styles.new_message_icon}>
               <FaComments style={style} onClick={() => toggleChat(true)} />
@@ -64,6 +64,10 @@ function ActivityDetails() {
             <div className={styles.detail_block}>
               <span className="bold">Admin:</span>
               <p>{activity.host}</p>
+            </div>
+            <div className={styles.detail_block}>
+              <span className="bold">Group:</span>
+              <p>{activity.group_name}</p>
             </div>
             <div className={styles.detail_block}>
               <span className="bold">Date:</span>

@@ -52,6 +52,9 @@ function MyActivities() {
               <div className={styles.details}>
                 <h3>{sport.sport}</h3>
                 <p>
+                  <span className="bold">Group:</span> {sport.group_name}
+                </p>
+                <p>
                   <span className="bold">Date:</span> {sport.date}
                   <span className="bold"></span> {sport.time}
                   <span className="bold"> / Location:</span> {sport.location}

@@ -44,7 +44,10 @@ function Home() {
               ></div>
               <h3>{sport.sport}</h3>
               <p>
-                <span className="bold">Date:</span> {sport.date}
+                <span className="bold">Group:</span> {sport.group_name}
+              </p>
+              <p>
+                <span className="bold">Date:</span> {sport.date} {sport.time}
               </p>
               <p>
                 <span className="bold">Location:</span> {sport.location}

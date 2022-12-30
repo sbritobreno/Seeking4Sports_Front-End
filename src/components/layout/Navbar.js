@@ -11,7 +11,8 @@ function Navbar() {
   }
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar_container}>
+      <div className={styles.navbar}>
       <div className={styles.navbar_logo}>
         <img src={Logo} alt="S4S" />
         <h2>Seeking 4 Sports</h2>
@@ -45,6 +46,7 @@ function Navbar() {
           </>
         )}
       </ul>
+      </div>
     </nav>
   );
 }

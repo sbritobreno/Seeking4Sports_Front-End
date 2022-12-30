@@ -68,6 +68,14 @@ function CreateActivity() {
           handleOnChange={handleSport}
           value={activity.sport || ""}
         />
+        <Input
+          text="Group Name"
+          type="text"
+          name="group_name"
+          placeholder="Type a group name"
+          handleOnChange={handleChange}
+          value={activity.group_name || ""}
+        />
         <Select
           text="Date"
           name="date"

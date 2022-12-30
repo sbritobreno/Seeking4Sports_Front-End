@@ -34,7 +34,8 @@ function Chat({ toggleChat }) {
         </button>
         <h1 className={styles.chat_header}>
           <FaComments style={style} />
-          Group Chat
+          {/* Add group name dynamically */}
+          {'Group Chat'}
         </h1>
         <div className={styles.chat_box}>
           {messages.map((msg) => (
