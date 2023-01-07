@@ -1,6 +1,3 @@
-import profile_img from "../assets/img/profile_img_default.png";
-import sport_img from "../assets/img/sport_img_default.png";
-
 const sportsOptions = ["Football", "VoleyBall", "Basketball"];
 const weekdays = [
   "Monday",
@@ -20,7 +17,7 @@ const username = [
     email: "breno.sport@hotmail.com",
     username: "sbritobreno",
     password: "123",
-    image: profile_img,
+    image: 'profile_img',
   },
   {
     id: "2",
@@ -29,7 +26,7 @@ const username = [
     email: "jeff.sport@hotmail.com",
     username: "jefflima",
     password: "123",
-    image: profile_img,
+    image: 'profile_img',
   },
 ];
 
@@ -37,7 +34,7 @@ const sports = [
   {
     id: "1",
     host: "jefflima",
-    image: sport_img,
+    image: 'sport_img',
     sport: "Voleyball",
     group_name: "ProPlayers",
     date: "Thrusday",
@@ -50,7 +47,7 @@ const sports = [
   {
     id: "2",
     host: "jefflima",
-    image: sport_img,
+    image: 'sport_img',
     sport: "Voleyball",
     group_name: "ProPlayers",
     date: "Thrusday",
@@ -63,7 +60,7 @@ const sports = [
   {
     id: "3",
     host: "sbritobreno",
-    image: sport_img,
+    image: 'sport_img',
     sport: "Voleyball",
     group_name: "ProPlayers",
     date: "Thrusday",
@@ -76,7 +73,7 @@ const sports = [
   {
     id: "4",
     host: "sbritobreno",
-    image: sport_img,
+    image: 'sport_img',
     sport: "Football",
     group_name: "ProPlayers",
     date: "Thrusday",
@@ -89,7 +86,7 @@ const sports = [
   {
     id: "5",
     host: "sbritobreno",
-    image: sport_img,
+    image: 'sport_img',
     sport: "Football",
     group_name: "ProPlayers",
     date: "Thrusday",
@@ -102,7 +99,7 @@ const sports = [
   {
     id: "6",
     host: "sbritobreno",
-    image: sport_img,
+    image: 'sport_img',
     sport: "Football",
     group_name: "ProPlayers",
     date: "Thrusday",

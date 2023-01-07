@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Logo from "../../assets/img/S4S_logo.png";
 import styles from "./Navbar.module.css";
 
-function Navbar() {
-  const [authenticated, setAuth] = useState(true);
+/* Contenxt */
+import {Context} from '../../context/UserContext'
 
-  function logout() {
-    setAuth(false);
-  }
+function Navbar() {
+  const {authenticated, logout} = useContext(Context)
 
   return (
     <nav className={styles.navbar_container}>

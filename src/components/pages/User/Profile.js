@@ -1,20 +1,32 @@
 import { useState, useEffect } from "react";
+import api from "../../../utils/api";
 import styles from "./Profile.module.css";
 import formStyles from "../../form/Form.module.css";
 import Input from "../../form/Input";
-import { username } from "../../objs";
-import WarningMessage from "../Sport/WarningMessage";
+import useFlashMessage from "../../../hooks/useFlashMEssage";
+import WarningMessage from "../Warning/WarningMessage";
 
 function Profile() {
   const [user, setUser] = useState({});
   const [preview, setPreview] = useState("");
+  const [token] = useState(localStorage.getItem("token") || "");
+  const { setFlashMessage } = useFlashMessage();
+
   const [warningOpen, setWarningOpen] = useState(false);
   const [btnText, setBtnText] = useState("");
   const warningMessage = "Are you sure you want to delete your account ?";
 
   useEffect(() => {
-    setUser(username[0]);
-  }, []);
+    api
+      .get("/user/checkuser", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+      });
+  }, [token]);
 
   function onFileChange(e) {
     setPreview(e.target.files[0]);
@@ -27,6 +39,27 @@ function Profile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    let msgType = "success";
+    const formData = new FormData();
+
+    await Object.keys(user).forEach((key) => formData.append(key, user[key]));
+
+    const data = await api
+      .patch(`/user/edit`, formData, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        msgType = "error";
+        return err.response.data;
+      });
+
+    setFlashMessage(data.message, msgType);
   }
 
   function toggleWarningMessage(value) {
@@ -49,7 +82,7 @@ function Profile() {
         <div className={formStyles.preview_images}>
           {(user.image || preview) && (
             <img
-              src={preview ? URL.createObjectURL(preview) : user.image}
+              src={preview ? URL.createObjectURL(preview) : `${process.env.REACT_APP_API}/images/users/${user.image}`}
               alt="Profile img"
             />
           )}
@@ -110,8 +143,8 @@ function Profile() {
         <button
           className={styles.btn2}
           onClick={() => {
+            setBtnText("Delete Account");
             toggleWarningMessage(true);
-            setBtnText("Delete");
           }}
         >
           Delete Account

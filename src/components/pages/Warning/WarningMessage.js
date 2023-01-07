@@ -1,6 +1,33 @@
+import api from "../../../utils/api";
 import styles from "./WarningMessage.module.css";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+
+/* hooks */
+import useFlashMessage from "../../../hooks/useFlashMEssage";
 
 function WarningMessage({ toggleWarningMessage, btnText, warningMessage }) {
+  const { deleteUserAccount } = useAuth();
+  const { setFlashMessage } = useFlashMessage();
+
+  function deleteOrLeave(text) {
+    switch (text) {
+      case "Delete Account":
+        deleteUserAccount();
+        break;
+      case "Delete Activity":
+        deleteActivity();
+        break;
+      case "Leave Activity":
+        leaveActivity();
+        break;
+      default:
+    }
+  }
+
+  function deleteActivity() {}
+  function leaveActivity() {}
+
   return (
     <section>
       <div className={styles.warning}>
@@ -21,7 +48,12 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage }) {
           >
             Cancel
           </button>
-          <button className={styles.btn2}>{btnText}</button>
+          <button
+            className={styles.btn2}
+            onClick={() => deleteOrLeave(btnText)}
+          >
+            {btnText}
+          </button>
         </div>
       </div>
       <div

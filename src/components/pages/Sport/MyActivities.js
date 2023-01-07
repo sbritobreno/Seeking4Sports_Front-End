@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { sports } from "../../objs";
 import Chat from "./Chat";
-import WarningMessage from "./WarningMessage";
+import WarningMessage from "../Warning/WarningMessage";
 
 function MyActivities() {
   const [activities, setActivities] = useState([]);
