@@ -2,25 +2,42 @@ import api from "../../../utils/api";
 import styles from "./ActivityDetails.module.css";
 import { useState, useEffect } from "react";
 import Chat from "./Chat";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import WarningMessage from "../Warning/WarningMessage";
 
 function ActivityDetails() {
+  const [user, setUser] = useState({});
+  const [token] = useState(localStorage.getItem("token") || "");
   const [activity, setActivity] = useState({});
-  const [chatOpened, setChatOpened] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
+  const [chatOpened, setChatOpened] = useState(false);
+  const [isAMember, setIsAMember] = useState(false);
   const [btnText, setBtnText] = useState("");
-  const {id} = useParams()
-  const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} this activity ?`;
+  const { id } = useParams();
+  const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} ?`;
 
   useEffect(() => {
+    api
+      .get("/user/checkuser", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+      });
+
     api.get(`/sport/${id}`).then((response) => {
       setActivity(response.data.activity);
-  })
-  }, [id]);
+    });
 
-  function isAMember() {
-    return true;
+  }, [id, token]);
+  
+  async function isMember(){
+    //create api to check if user is a member and setState
+  }
+
+  async function joinGroup(){
   }
 
   function toggleChat(value) {
@@ -51,7 +68,10 @@ function ActivityDetails() {
             </h1>
           </div>
           <div className={styles.activity_images}>
-            <img src={activity.image} alt={activity.sport} />
+            <img
+              src={`${process.env.REACT_APP_API}/images/sports/${activity.image}`}
+              alt={activity.sport}
+            />
           </div>
           <h3>{activity.sport}</h3>
           <div className={styles.activity_details_subcontainer}>
@@ -94,7 +114,7 @@ function ActivityDetails() {
               <p>{activity.missing_players} players</p>
             </div>
             <div className={styles.btns}>
-              {isAMember() ? (
+              {isMember() ? (
                 <>
                   <button
                     className={styles.btn1}
@@ -102,12 +122,12 @@ function ActivityDetails() {
                   >
                     Chat
                   </button>
-                  {activity.host === "sbritobreno" ? (
+                  {activity.UserId === user.id ? (
                     <button
                       className={styles.btn2}
                       onClick={() => {
                         toggleWarningMessage(true);
-                        setBtnText("Delete");
+                        setBtnText("Delete Activity");
                       }}
                     >
                       Delete Group
@@ -117,7 +137,7 @@ function ActivityDetails() {
                       className={styles.btn2}
                       onClick={() => {
                         toggleWarningMessage(true);
-                        setBtnText("Leave");
+                        setBtnText("Leave Activity");
                       }}
                     >
                       Leave Group
@@ -125,7 +145,7 @@ function ActivityDetails() {
                   )}
                 </>
               ) : (
-                <button className={styles.btn1} onClick={{}}>
+                <button className={styles.btn1} onClick={() => {joinGroup()}}>
                   Join Group
                 </button>
               )}

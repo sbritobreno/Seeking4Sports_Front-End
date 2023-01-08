@@ -1,11 +1,19 @@
+import api from '../../../utils/api'
 import { useState } from "react";
 import Input from "../../form/Input";
 import formStyles from "../../form/Form.module.css";
 import styles from "./NewActivity.module.css";
 import Select from "../../form/Select";
 import { sportsOptions, weekdays } from "../../objs";
+import { useNavigate } from "react-router-dom";
+
+/* hooks */
+import useFlashMessage from "../../../hooks/useFlashMEssage";
 
 function CreateActivity() {
+  const [token] = useState(localStorage.getItem("token") || "");
+  const { setFlashMessage } = useFlashMessage();
+  const navigate = useNavigate();
   const [activity, setActivity] = useState({});
   const [preview, setPreview] = useState("");
 
@@ -37,7 +45,33 @@ function CreateActivity() {
     registerNewActivity(activity);
   }
 
-  async function registerNewActivity(sport) {}
+  async function registerNewActivity(activity) {
+    let msgType = "success";
+    const formData = new FormData();
+
+    await Object.keys(activity).forEach((key) => formData.append(key, activity[key]));
+
+    const data = await api
+      .post("sport/newactivity", formData, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        msgType = "error";
+        return err.response.data;
+      });
+
+    setFlashMessage(data.message, msgType);
+
+    if (msgType !== "error") {
+      navigate("/user/myactivities");
+    }
+  }
 
   return (
     <section>

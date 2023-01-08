@@ -1,11 +1,13 @@
+import api from "../../../utils/api";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
-import { sports } from "../../objs";
 import Chat from "./Chat";
 import WarningMessage from "../Warning/WarningMessage";
 
 function MyActivities() {
+  const [user, setUser] = useState({});
+  const [token] = useState(localStorage.getItem("token") || "");
   const [activities, setActivities] = useState([]);
   const [chatOpened, setChatOpened] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -13,8 +15,26 @@ function MyActivities() {
   const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} this activity ?`;
 
   useEffect(() => {
-    setActivities(sports);
-  }, []);
+    api
+      .get("/user/checkuser", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+      });
+
+    api
+      .get("/sport/myactivities", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setActivities(response.data.sports);
+      });
+  }, [token]);
 
   function toggleChat(value) {
     setChatOpened(value);
@@ -46,7 +66,7 @@ function MyActivities() {
             <div className={styles.sportslist_row} key={sport.id}>
               <img
                 className={styles.mysport_image}
-                src={sport.image}
+                src={`${process.env.REACT_APP_API}/images/sports/${sport.image}`}
                 alt="Sport_Image"
               />
               <div className={styles.details}>
@@ -70,7 +90,7 @@ function MyActivities() {
                 >
                   Chat
                 </button>
-                {sport.host === "sbritobreno" ? (
+                {sport.UserId === user.id ? (
                   <button
                     className={styles.btn2}
                     onClick={() => {

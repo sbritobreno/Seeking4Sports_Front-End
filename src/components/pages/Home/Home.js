@@ -6,8 +6,8 @@ import styles from "./Home.module.css";
 function Home() {
   const [activities, setActivities] = useState([]);
   const [searchfield, setSearchfield] = useState("");
-  const filteredSports = activities.filter((sport) => {
-    return sport.sport.toLowerCase().includes(searchfield.toLowerCase());
+  const filteredSports = activities.filter((activity) => {
+    return activity.sport.toLowerCase().includes(searchfield.toLowerCase());
   });
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Home() {
             <div className={styles.sport_card} key={sport.id}>
               <div
                 style={{
-                  backgroundImage: `url(${process.env.REACT_APP_API}/images/pets/${sport.image})`,
+                  backgroundImage: `url(${process.env.REACT_APP_API}/images/sports/${sport.image})`,
                 }}
                 className={styles.sport_card_image}
               ></div>

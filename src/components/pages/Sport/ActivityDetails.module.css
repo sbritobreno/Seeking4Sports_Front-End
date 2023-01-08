@@ -3,16 +3,8 @@
 }
 
 .activity_details_header {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 1em;
-}
-
-.activity_details_h1 {
-  flex: 0 1 auto;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  text-align: center;
+  margin-bottom: 1.2em;
 }
 
 .activity_details_subcontainer {
