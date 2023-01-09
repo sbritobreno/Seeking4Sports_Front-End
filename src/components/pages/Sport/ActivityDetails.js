@@ -5,13 +5,18 @@ import Chat from "./Chat";
 import { useParams } from "react-router-dom";
 import WarningMessage from "../Warning/WarningMessage";
 
+/* hooks */
+import useFlashMessage from "../../../hooks/useFlashMEssage";
+
 function ActivityDetails() {
   const [user, setUser] = useState({});
   const [token] = useState(localStorage.getItem("token") || "");
+  const { setFlashMessage } = useFlashMessage();
   const [activity, setActivity] = useState({});
+  const [admin, setAdmin] = useState('');
+  const [members, setMembers] = useState([]);
   const [warningOpen, setWarningOpen] = useState(false);
   const [chatOpened, setChatOpened] = useState(false);
-  const [isAMember, setIsAMember] = useState(false);
   const [btnText, setBtnText] = useState("");
   const { id } = useParams();
   const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} ?`;
@@ -31,13 +36,46 @@ function ActivityDetails() {
       setActivity(response.data.activity);
     });
 
-  }, [id, token]);
+    api.get(`/sport/${id}/admin`).then((response) => {
+      setAdmin(response.data.admin);
+    });
+
+    api.get(`/sport/${id}/members`).then((response) => {
+      setMembers(response.data.members);
+    });
+
+  }, [id, token, members]);
+
+  const renderMembers = () => {
+    return members.map(member => member.username) + '; ';
+  }
   
-  async function isMember(){
-    //create api to check if user is a member and setState
+  function isMember(){
+    // default return value is false
+    for (const member of members){
+      if(member.id === user.id)
+      return true;
+    }
   }
 
   async function joinGroup(){
+    let msgType = "success";
+
+    const data = await api.post(`/sport/joingroup/${id}`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      msgType = "error";
+      return err.response.data;
+    });
+
+    setFlashMessage(data.message, msgType);
   }
 
   function toggleChat(value) {
@@ -81,10 +119,10 @@ function ActivityDetails() {
             </div>
             <div className={styles.detail_block}>
               <span className="bold">Admin:</span>
-              <p>{activity.UserId}</p>
+              <p>{admin.username}</p>
             </div>
             <div className={styles.detail_block}>
-              <span className="bold">Group:</span>
+              <span className="bold">Group Name:</span>
               <p>{activity.group_name}</p>
             </div>
             <div className={styles.detail_block}>
@@ -100,9 +138,7 @@ function ActivityDetails() {
             <div className={styles.detail_block}>
               <span className="bold">Members Joined:</span>
               <p>
-                {/* {activity.members.map((member) => {
-                  return member.user + "; ";
-                })} */}
+                {renderMembers()}
               </p>
             </div>
             <div className={styles.detail_block}>
