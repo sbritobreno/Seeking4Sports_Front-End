@@ -2,13 +2,34 @@ import api from "../../../utils/api";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Home.module.css";
+import { FaFilter } from "react-icons/fa";
 
 function Home() {
   const [activities, setActivities] = useState([]);
-  const [searchfield, setSearchfield] = useState("");
-  const filteredSports = activities.filter((activity) => {
-    return activity.sport.toLowerCase().includes(searchfield.toLowerCase());
-  });
+  const [searchfieldSport, setSearchfieldSport] = useState("");
+  const [searchfieldLocation, setSearchfieldLocation] = useState("");
+  const [searchfieldDay, setSearchfieldDay] = useState("");
+  const filteredSports = searchFilter();
+  const style = { color: "#2d1b42", fontSize: "1em", marginRight: "0.2em" };
+  
+  function searchFilter(){
+    // filter by sport
+    let result = activities.filter((activity) => {
+      return activity.sport.toLowerCase().includes(searchfieldSport.toLowerCase());
+    });
+
+    // filter by City/Town
+    result = result.filter((activity) => {
+      return activity.location.toLowerCase().includes(searchfieldLocation.toLowerCase());
+    });
+
+    // filter by Day
+    result = result.filter((activity) => {
+      return activity.date.toLowerCase().includes(searchfieldDay.toLowerCase());
+    });
+
+    return result
+  }
 
   useEffect(() => {
     api.get("/sport").then((response) => {
@@ -16,9 +37,16 @@ function Home() {
     });
   }, []);
 
-  function onSearchChange(event) {
-    setSearchfield(event.target.value);
+  function onSearchChangeSport(event) {
+    setSearchfieldSport(event.target.value);
   }
+  function onSearchChangeLocation(event) {
+    setSearchfieldLocation(event.target.value);
+  }
+  function onSearchChangeDay(event) {
+    setSearchfieldDay(event.target.value);
+  }
+
 
   return (
     <section>
@@ -27,11 +55,25 @@ function Home() {
         <p>See details of each activity and their members.</p>
       </div>
       <div className={styles.search_box}>
+      <FaFilter style={style} />
         <input
           className={styles.search}
           type="search"
-          placeholder="Search Sport"
-          onChange={onSearchChange}
+          placeholder="Search by Sport"
+          onChange={onSearchChangeSport}
+        />
+        <input
+          className={styles.search}
+          type="search"
+          placeholder="Search by City/Town"
+          onChange={onSearchChangeLocation}
+        />
+        <input
+        style={{marginRight: "2em"}}
+          className={styles.search}
+          type="search"
+          placeholder="Search by Day"
+          onChange={onSearchChangeDay}
         />
       </div>
       <div className={styles.sport_container}>
