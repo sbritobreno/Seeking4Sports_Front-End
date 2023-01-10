@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import useFlashMessage from "../../../hooks/useFlashMEssage";
 
 function CreateActivity() {
-  const [token] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
   const [activity, setActivity] = useState({});

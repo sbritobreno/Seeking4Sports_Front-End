@@ -11,16 +11,20 @@ function Home() {
   const [searchfieldDay, setSearchfieldDay] = useState("");
   const filteredSports = searchFilter();
   const style = { color: "#2d1b42", fontSize: "1em", marginRight: "0.2em" };
-  
-  function searchFilter(){
+
+  function searchFilter() {
     // filter by sport
     let result = activities.filter((activity) => {
-      return activity.sport.toLowerCase().includes(searchfieldSport.toLowerCase());
+      return activity.sport
+        .toLowerCase()
+        .includes(searchfieldSport.toLowerCase());
     });
 
     // filter by City/Town
     result = result.filter((activity) => {
-      return activity.location.toLowerCase().includes(searchfieldLocation.toLowerCase());
+      return activity.location
+        .toLowerCase()
+        .includes(searchfieldLocation.toLowerCase());
     });
 
     // filter by Day
@@ -28,7 +32,7 @@ function Home() {
       return activity.date.toLowerCase().includes(searchfieldDay.toLowerCase());
     });
 
-    return result
+    return result;
   }
 
   useEffect(() => {
@@ -47,7 +51,6 @@ function Home() {
     setSearchfieldDay(event.target.value);
   }
 
-
   return (
     <section>
       <div className={styles.sport_home_header}>
@@ -55,7 +58,7 @@ function Home() {
         <p>See details of each activity and their members.</p>
       </div>
       <div className={styles.search_box}>
-      <FaFilter style={style} />
+        <FaFilter style={style} />
         <input
           className={styles.search}
           type="search"
@@ -69,7 +72,7 @@ function Home() {
           onChange={onSearchChangeLocation}
         />
         <input
-        style={{marginRight: "2em"}}
+          style={{ marginRight: "2em" }}
           className={styles.search}
           type="search"
           placeholder="Search by Day"

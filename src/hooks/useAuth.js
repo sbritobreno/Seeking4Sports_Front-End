@@ -42,8 +42,9 @@ export default function useAuth() {
 
     try {
       const data = await api.post("/user/login", user).then((response) => {
+        msgText = response.data.message
         return response.data;
-      });
+      })
 
       await authUser(data);
     } catch (error) {

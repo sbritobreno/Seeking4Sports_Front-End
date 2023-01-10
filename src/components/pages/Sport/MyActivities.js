@@ -7,7 +7,7 @@ import WarningMessage from "../Warning/WarningMessage";
 
 function MyActivities() {
   const [user, setUser] = useState({});
-  const [token] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token"));
   const [activities, setActivities] = useState([]);
   const [chatOpened, setChatOpened] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -114,7 +114,7 @@ function MyActivities() {
               </div>
             </div>
           ))}
-        {activities.length === 0 && <p>There is no activities :/</p>}
+        {activities.length === 0 && <p>You are not a member of any activity yet :/</p>}
       </div>
     </section>
   );

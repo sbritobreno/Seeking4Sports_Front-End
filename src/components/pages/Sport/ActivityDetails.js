@@ -10,10 +10,10 @@ import useFlashMessage from "../../../hooks/useFlashMEssage";
 
 function ActivityDetails() {
   const [user, setUser] = useState({});
-  const [token] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
   const [activity, setActivity] = useState({});
-  const [admin, setAdmin] = useState('');
+  const [admin, setAdmin] = useState({});
   const [members, setMembers] = useState([]);
   const [warningOpen, setWarningOpen] = useState(false);
   const [chatOpened, setChatOpened] = useState(false);
@@ -43,37 +43,39 @@ function ActivityDetails() {
     api.get(`/sport/${id}/members`).then((response) => {
       setMembers(response.data.members);
     });
-
   }, [id, token, members]);
 
   const renderMembers = () => {
-    return members.map(member => member.username) + '; ';
-  }
-  
-  function isMember(){
+    return members.map((member) => member.username + "; ");
+  };
+
+  function isMember() {
     // default return value is false
-    for (const member of members){
-      if(member.id === user.id)
-      return true;
+    for (const member of members) {
+      if (member.id === user.id) return true;
     }
   }
 
-  async function joinGroup(){
+  async function joinGroup() {
     let msgType = "success";
 
-    const data = await api.post(`/sport/joingroup/${id}`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(token)}`,
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      msgType = "error";
-      return err.response.data;
-    });
+    const data = await api
+      .post(`/sport/joingroup/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        msgType = "error";
+        return err.response.data;
+      });
+
+    if (data.message === "Access denied!")
+      data.message = "You are not logged in!";
 
     setFlashMessage(data.message, msgType);
   }
@@ -128,18 +130,16 @@ function ActivityDetails() {
             <div className={styles.detail_block}>
               <span className="bold">Date:</span>
               <p>
-                {activity.date} at {activity.time}
+                Every {activity.date} at {activity.time}
               </p>
             </div>
             <div className={styles.detail_block}>
-              <span className="bold">Location:</span>
+              <span className="bold">City/Town:</span>
               <p>{activity.location}</p>
             </div>
             <div className={styles.detail_block}>
               <span className="bold">Members Joined:</span>
-              <p>
-                {renderMembers()}
-              </p>
+              <p>{renderMembers()}</p>
             </div>
             <div className={styles.detail_block}>
               <span className="bold">Total Members:</span>
@@ -181,7 +181,12 @@ function ActivityDetails() {
                   )}
                 </>
               ) : (
-                <button className={styles.btn1} onClick={() => {joinGroup()}}>
+                <button
+                  className={styles.btn1}
+                  onClick={() => {
+                    joinGroup();
+                  }}
+                >
                   Join Group
                 </button>
               )}
