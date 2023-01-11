@@ -1,30 +1,57 @@
 import styles from "./Chat.module.css";
-import { username } from "../../objs";
+import api from "../../../utils/api";
+import { useState, useEffect, useRef } from "react";
 import { FaComments } from "react-icons/fa";
 
-function Chat({ toggleChat }) {
+function Chat({ toggleChat, sportId }) {
+  const [messages, setMessages] = useState([]);
+  const [activity, setActivity] = useState({});
+  const [new_message, setNewMessage] = useState("");
+  const [token] = useState(localStorage.getItem("token"));
+  const [members, setMembers] = useState([]);
   const style = { color: "#fff", fontSize: "0.8em", marginRight: "10px" };
-  const messages = [
-    {
-      msg: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      msg: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ideserunt mollit anim id est laborum.",
-    },
-    { msg: "Hello World!" },
-    {
-      msg: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ideserunt mollit anim id est laborum.",
-    },
-    {
-      msg: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ideserunt mollit anim id est laborum.",
-    },
-  ];
 
-  var date = new Date();
-  var current_date =
-    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-  var current_time =
-    date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  // Scrolls to the end of the chat
+  const messagesEndRef = useRef(null)
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView()
+  }
+  
+  useEffect(() => {
+    api.get(`/sport/${sportId}`).then((response) => {
+      setActivity(response.data.activity);
+    });
+
+    api.get(`/message/sport/${sportId}`).then((response) => {
+      setMessages(response.data.data);
+    });
+
+    api.get(`/sport/${sportId}/members`).then((response) => {
+      setMembers(response.data.members);
+    });
+
+    scrollToBottom()
+    
+  }, [sportId, token, members]);
+  
+  function handleChange(e) {
+    setNewMessage({ ...new_message, [e.target.name]: e.target.value });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await api
+      .post(`/message/new/sport/${sportId}`, new_message)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        return err.response.data;
+      });
+
+    setNewMessage("");
+    e.target.reset();
+  }
 
   return (
     <section>
@@ -34,34 +61,45 @@ function Chat({ toggleChat }) {
         </button>
         <h1 className={styles.chat_header}>
           <FaComments style={style} />
-          {/* Add group name dynamically */}
-          {'Group Chat'}
+          {activity.group_name}
         </h1>
         <div className={styles.chat_box}>
           {messages.map((msg) => (
             <div className={styles.message}>
-              <img
-                className={styles.user_image}
-                src={username[0].image}
-                alt="Profile img"
-              />
+              {members
+                .filter((member) => member.id === msg.UserId)
+                .map((member) => (
+                  <img
+                    className={styles.user_image}
+                    src={`${process.env.REACT_APP_API}/images/users/${member.image}`}
+                    alt="Profile img"
+                  />
+                ))}
               <div>
                 <div className={styles.user_date_msg}>
-                  <h4>{username[0].name}</h4>
-                  <p>
-                    {current_date} / {current_time}
-                  </p>
+                  {members
+                    .filter((member) => member.id === msg.UserId)
+                    .map((member) => (
+                      <h4>{member.username}</h4>
+                    ))}
+                  <p>{msg.createdAt.replace('T',' / ').replace('.000Z','')}</p>
                 </div>
-                <p>{msg.msg}</p>
+                <p>{msg.message}</p>
               </div>
+              <div ref={messagesEndRef} />
             </div>
           ))}
         </div>
-        <input
-          className={styles.message_box}
-          placeholder="Type a new message"
-          onChange={{}}
-        ></input>
+        <form onSubmit={handleSubmit}>
+          <input
+            className={styles.message_box}
+            type="text"
+            name="message_text"
+            placeholder="Type a new message"
+            onChange={handleChange}
+            autoComplete="off"
+          ></input>
+        </form>
       </div>
       <div className={styles.overlay} onClick={() => toggleChat(false)}></div>
     </section>

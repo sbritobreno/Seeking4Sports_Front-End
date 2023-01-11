@@ -90,7 +90,7 @@ function ActivityDetails() {
 
   return (
     <>
-      {chatOpened ? <Chat toggleChat={toggleChat} /> : <></>}
+      {chatOpened ? <Chat sportId={activity.id} toggleChat={toggleChat} /> : <></>}
       {warningOpen ? (
         <WarningMessage
           toggleWarningMessage={toggleWarningMessage}

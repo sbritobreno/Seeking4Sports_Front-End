@@ -9,6 +9,7 @@ function MyActivities() {
   const [user, setUser] = useState({});
   const [token] = useState(localStorage.getItem("token"));
   const [activities, setActivities] = useState([]);
+  const [activityId, setActivityId] = useState(0);
   const [chatOpened, setChatOpened] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
   const [btnText, setBtnText] = useState("");
@@ -36,7 +37,8 @@ function MyActivities() {
       });
   }, [token]);
 
-  function toggleChat(value) {
+  function toggleChat(value, sportId) {
+    setActivityId(sportId)
     setChatOpened(value);
   }
 
@@ -46,7 +48,7 @@ function MyActivities() {
 
   return (
     <section>
-      {chatOpened ? <Chat toggleChat={toggleChat} /> : <></>}
+      {chatOpened ? <Chat sportId={activityId} toggleChat={toggleChat} /> : <></>}
       {warningOpen ? (
         <WarningMessage
           toggleWarningMessage={toggleWarningMessage}
@@ -86,7 +88,7 @@ function MyActivities() {
               <div className={styles.actions}>
                 <button
                   className={styles.btn1}
-                  onClick={() => toggleChat(true)}
+                  onClick={() => toggleChat(true, sport.id)}
                 >
                   Chat
                 </button>
