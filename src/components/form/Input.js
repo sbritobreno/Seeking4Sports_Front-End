@@ -8,7 +8,8 @@ function Input({
   handleOnChange,
   value,
   multiple,
-  readonly,
+  autoComplete,
+  readOnly,
 }) {
   return (
     <div className={styles.form_control}>
@@ -20,7 +21,8 @@ function Input({
         placeholder={placeholder}
         onChange={handleOnChange}
         value={value}
-        readonly={readonly}
+        readOnly={readOnly}
+        autoComplete={autoComplete}
         {...(multiple ? { multiple } : "")}
       />
     </div>

@@ -3,14 +3,12 @@ import styles from "./WarningMessage.module.css";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 /* hooks */
 import useFlashMessage from "../../../hooks/useFlashMEssage";
 
-function WarningMessage({ toggleWarningMessage, btnText, warningMessage }) {
+function WarningMessage({ toggleWarningMessage, btnText, warningMessage, sportId }) {
   const [token] = useState(localStorage.getItem("token") || "");
-  const { id } = useParams();
   const { deleteUserAccount } = useAuth();
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
@@ -33,7 +31,7 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage }) {
   async function deleteActivity() {
     let msgType = "success";
 
-    const data = await api.delete(`/sport/delete/${id}`, {
+    const data = await api.delete(`/sport/delete/${sportId}`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(token)}`,
         "Content-Type": "multipart/form-data",
@@ -54,7 +52,7 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage }) {
   async function leaveActivity() {
     let msgType = "success";
 
-    const data = await api.delete(`/sport/leavegroup/${id}`, {
+    const data = await api.delete(`/sport/leavegroup/${sportId}`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(token)}`,
         "Content-Type": "multipart/form-data",

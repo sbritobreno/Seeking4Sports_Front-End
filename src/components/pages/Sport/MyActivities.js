@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import Chat from "./Chat";
 import WarningMessage from "../Warning/WarningMessage";
+import { useNavigate } from "react-router-dom";
 
 function MyActivities() {
   const [user, setUser] = useState({});
@@ -13,6 +14,7 @@ function MyActivities() {
   const [chatOpened, setChatOpened] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
   const [btnText, setBtnText] = useState("");
+  const navigate = useNavigate();
   const warningMessage = `Are you sure you want to ${btnText.toLowerCase()} this activity ?`;
 
   useEffect(() => {
@@ -38,22 +40,28 @@ function MyActivities() {
   }, [token]);
 
   function toggleChat(value, sportId) {
-    setActivityId(sportId)
+    setActivityId(sportId);
     setChatOpened(value);
   }
 
-  function toggleWarningMessage(value) {
+  function toggleWarningMessage(value, sportId) {
+    setActivityId(sportId);
     setWarningOpen(value);
   }
 
   return (
     <section>
-      {chatOpened ? <Chat sportId={activityId} toggleChat={toggleChat} /> : <></>}
+      {chatOpened ? (
+        <Chat sportId={activityId} toggleChat={toggleChat} />
+      ) : (
+        <></>
+      )}
       {warningOpen ? (
         <WarningMessage
           toggleWarningMessage={toggleWarningMessage}
           btnText={btnText}
           warningMessage={warningMessage}
+          sportId={activityId}
         />
       ) : (
         <></>
@@ -96,8 +104,8 @@ function MyActivities() {
                   <button
                     className={styles.btn2}
                     onClick={() => {
-                      toggleWarningMessage(true);
-                      setBtnText("Delete");
+                      toggleWarningMessage(true, sport.id);
+                      setBtnText("Delete Activity");
                     }}
                   >
                     Delete Group
@@ -106,17 +114,26 @@ function MyActivities() {
                   <button
                     className={styles.btn2}
                     onClick={() => {
-                      toggleWarningMessage(true);
-                      setBtnText("Leave");
+                      toggleWarningMessage(true, sport.id);
+                      setBtnText("Leave Activity");
                     }}
                   >
                     Leave Group
                   </button>
                 )}
+                <button
+                  className={styles.btn3}
+                  disabled={sport.UserId !== user.id}
+                  onClick={() => navigate(`/user/editactivity/${sport.id}`)}
+                >
+                  Edit
+                </button>
               </div>
             </div>
           ))}
-        {activities.length === 0 && <p>You are not a member of any activity yet :/</p>}
+        {activities.length === 0 && (
+          <p>You are not a member of any activity yet :/</p>
+        )}
       </div>
     </section>
   );

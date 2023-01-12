@@ -79,6 +79,19 @@
   color: #fff;
 }
 
+.actions .btn3:hover {
+  background-color: #c9c906;
+  border: 2px solid #c9c906;
+  color: #fff;
+}
+
+.actions .btn3[disabled]:hover {
+  background-color: #c9c906;
+  border: 2px solid #c9c906;
+  cursor: default;
+  color: #fff;
+}
+
 /* my adoptions */
 
 .home_header {

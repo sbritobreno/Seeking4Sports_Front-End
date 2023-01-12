@@ -96,6 +96,7 @@ function ActivityDetails() {
           toggleWarningMessage={toggleWarningMessage}
           btnText={btnText}
           warningMessage={warningMessage}
+          sportId={activity.id}
         />
       ) : (
         <></>

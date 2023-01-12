@@ -4,12 +4,12 @@ import Input from "../../form/Input";
 import formStyles from "../../form/Form.module.css";
 import styles from "./NewActivity.module.css";
 import Select from "../../form/Select";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 /* hooks */
 import useFlashMessage from "../../../hooks/useFlashMEssage";
 
-function CreateActivity() {
+function EditActivity() {
   const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
@@ -17,9 +17,14 @@ function CreateActivity() {
   const [cities, setCities] = useState([]);
   const [sportList, setSportList] = useState([]);
   const [preview, setPreview] = useState("");
+  const { id } = useParams();
   const weekdays = ["Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday"];
 
   useEffect(() => {
+    api.get(`/sport/${id}`).then((response) => {
+        setActivity(response.data.activity);
+      });
+
     api
       .get("seeking4sports_api/cities")
       .then((response) => {
@@ -32,7 +37,7 @@ function CreateActivity() {
         setSportList(response.data.sport_list);
       })
 
-  }, [token]);
+  }, [token, id]);
 
   function onFileChange(e) {
     setPreview(e.target.files[0]);
@@ -66,10 +71,10 @@ function CreateActivity() {
 
   function submit(e) {
     e.preventDefault();
-    registerNewActivity(activity);
+    editActivity(activity);
   }
 
-  async function registerNewActivity(activity) {
+  async function editActivity(activity) {
     let msgType = "success";
     const formData = new FormData();
 
@@ -78,7 +83,7 @@ function CreateActivity() {
     );
 
     const data = await api
-      .post("sport/newactivity", formData, {
+      .patch(`sport/edit/${activity.id}`, formData, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
           "Content-Type": "multipart/form-data",
@@ -102,14 +107,14 @@ function CreateActivity() {
   return (
     <section>
       <div className={styles.newactivity_header}>
-        <h1>Create a New Activity</h1>
+        <h1>Edit Activity</h1>
         <p>It will be available on the Home page for other users</p>
       </div>
 
       <form onSubmit={submit} className={formStyles.form_container}>
         <div className={formStyles.preview_images}>
             <img
-              src={preview ? URL.createObjectURL(preview) : `${process.env.REACT_APP_API}/images/sports/sport_img_default.png`}
+              src={preview ? URL.createObjectURL(preview) : `${process.env.REACT_APP_API}/images/sports/${activity.image}`}
               alt="Sport_Image"
             />
         </div>
@@ -173,10 +178,10 @@ function CreateActivity() {
           value={activity.description || ""}
           autoComplete="off"
         />
-        <input type="submit" value="Create" />
+        <input type="submit" value="Edit" />
       </form>
     </section>
   );
 }
 
-export default CreateActivity;
+export default EditActivity;
