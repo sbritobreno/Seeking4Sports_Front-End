@@ -24,10 +24,10 @@ function Navbar() {
           //Empty tags as it is not allowed to have more than one child component <></>
           <>
             <li>
-              <Link to="/user/newactivity">New Activity</Link>
+              <Link to="/sport/newactivity">New Activity</Link>
             </li>
             <li>
-              <Link to="/user/myactivities">My Activities</Link>
+              <Link to="/sport/myactivities">My Activities</Link>
             </li>
             <li>
               <Link to="/user/profile">Profile</Link>

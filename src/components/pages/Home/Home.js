@@ -17,19 +17,19 @@ function Home() {
     let result = activities.filter((activity) => {
       return activity.sport
         .toLowerCase()
-        .includes(searchfieldSport.toLowerCase());
+        .startsWith(searchfieldSport.toLowerCase());
     });
 
     // filter by City/Town
     result = result.filter((activity) => {
       return activity.location
         .toLowerCase()
-        .includes(searchfieldLocation.toLowerCase());
+        .startsWith(searchfieldLocation.toLowerCase());
     });
 
     // filter by Day
     result = result.filter((activity) => {
-      return activity.date.toLowerCase().includes(searchfieldDay.toLowerCase());
+      return activity.date.toLowerCase().startsWith(searchfieldDay.toLowerCase());
     });
 
     return result;

@@ -7,13 +7,18 @@ import { useState } from "react";
 /* hooks */
 import useFlashMessage from "../../../hooks/useFlashMEssage";
 
-function WarningMessage({ toggleWarningMessage, btnText, warningMessage, sportId }) {
+function WarningMessage({
+  toggleWarningMessage,
+  btnText,
+  warningMessage,
+  sportId,
+}) {
   const [token] = useState(localStorage.getItem("token") || "");
   const { deleteUserAccount } = useAuth();
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
 
-  function deleteOrLeave(text) {
+  function warningMessageBtn(text) {
     switch (text) {
       case "Delete Account":
         deleteUserAccount();
@@ -24,6 +29,9 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage, sportId
       case "Leave Activity":
         leaveActivity();
         break;
+      // case "Remove Member":
+      //   removeMember();
+      //   break;
       default:
     }
   }
@@ -31,43 +39,46 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage, sportId
   async function deleteActivity() {
     let msgType = "success";
 
-    const data = await api.delete(`/sport/delete/${sportId}`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(token)}`,
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      msgType = "error";
-      return err.response.data;
-    });
+    const data = await api
+      .delete(`/sport/delete/${sportId}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        msgType = "error";
+        return err.response.data;
+      });
 
     setFlashMessage(data.message, msgType);
-    navigate('/')
+    navigate("/");
   }
 
   async function leaveActivity() {
     let msgType = "success";
 
-    const data = await api.delete(`/sport/leavegroup/${sportId}`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(token)}`,
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      msgType = "error";
-      return err.response.data;
-    });
+    const data = await api
+      .delete(`/sport/leavegroup/${sportId}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        msgType = "error";
+        return err.response.data;
+      });
 
     setFlashMessage(data.message, msgType);
-    navigate('/')
+    navigate('/');
+    
   }
 
   return (
@@ -92,7 +103,7 @@ function WarningMessage({ toggleWarningMessage, btnText, warningMessage, sportId
           </button>
           <button
             className={styles.btn2}
-            onClick={() => deleteOrLeave(btnText)}
+            onClick={() => warningMessageBtn(btnText)}
           >
             {btnText}
           </button>

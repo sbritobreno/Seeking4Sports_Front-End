@@ -31,11 +31,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/user/newactivity" element={<NewActivity />} />
-            <Route path="/user/myactivities" element={<MyActivities />} />
-            <Route path="/user/editactivity/:id" element={<EditActivity />} />
-            <Route path="/user/profile" element={<Profile />} />
+            <Route path="/sport/newactivity" element={<NewActivity />} />
+            <Route path="/sport/myactivities" element={<MyActivities />} />
+            <Route path="/sport/editactivity/:id" element={<EditActivity />} />
             <Route path="/sport/:id" element={<ActivityDetails />} />
+            <Route path="/user/profile" element={<Profile />} />
           </Routes>
         </Container>
         <Footer />

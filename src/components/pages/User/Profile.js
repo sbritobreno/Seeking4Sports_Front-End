@@ -100,7 +100,7 @@ function Profile() {
           type="email"
           name="email"
           value={user.email || ""}
-          readonly={"readonly"}
+          readOnly={"readonly"}
         />
         <Input
           text="Name"
@@ -115,7 +115,8 @@ function Profile() {
           type="text"
           name="username"
           value={user.username || ""}
-          readonly={"readonly"}
+          autoComplete={"username"}
+          readOnly={"readonly"}
         />
         <Input
           text="Phone"
@@ -130,6 +131,7 @@ function Profile() {
           type="password"
           name="password"
           placeholder="Type your password"
+          autoComplete={"new-password"}
           handleOnChange={handleChange}
         />
         <Input
@@ -137,6 +139,7 @@ function Profile() {
           type="password"
           name="confirmpassword"
           placeholder="Type your password again"
+          autoComplete={"new-password"}
           handleOnChange={handleChange}
         />
         <input type="submit" name="button_1" value="Edit" />

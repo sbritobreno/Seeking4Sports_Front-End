@@ -95,7 +95,7 @@ function CreateActivity() {
     setFlashMessage(data.message, msgType);
 
     if (msgType !== "error") {
-      navigate("/user/myactivities");
+      navigate("/sport/myactivities");
     }
   }
 

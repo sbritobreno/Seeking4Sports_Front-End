@@ -124,7 +124,7 @@ function MyActivities() {
                 <button
                   className={styles.btn3}
                   disabled={sport.UserId !== user.id}
-                  onClick={() => navigate(`/user/editactivity/${sport.id}`)}
+                  onClick={() => navigate(`/sport/editactivity/${sport.id}`)}
                 >
                   Edit
                 </button>

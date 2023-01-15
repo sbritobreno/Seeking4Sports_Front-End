@@ -4,7 +4,7 @@ import Input from "../../form/Input";
 import formStyles from "../../form/Form.module.css";
 import styles from "./NewActivity.module.css";
 import Select from "../../form/Select";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 /* hooks */
 import useFlashMessage from "../../../hooks/useFlashMEssage";
@@ -12,31 +12,33 @@ import useFlashMessage from "../../../hooks/useFlashMEssage";
 function EditActivity() {
   const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
-  const navigate = useNavigate();
   const [activity, setActivity] = useState({});
   const [cities, setCities] = useState([]);
   const [sportList, setSportList] = useState([]);
   const [preview, setPreview] = useState("");
   const { id } = useParams();
-  const weekdays = ["Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday"];
+  const weekdays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thrusday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   useEffect(() => {
     api.get(`/sport/${id}`).then((response) => {
-        setActivity(response.data.activity);
-      });
+      setActivity(response.data.activity);
+    });
 
-    api
-      .get("seeking4sports_api/cities")
-      .then((response) => {
-        setCities(response.data.cities);
-      })
+    api.get("seeking4sports_api/cities").then((response) => {
+      setCities(response.data.cities);
+    });
 
-      api
-      .get("seeking4sports_api/sportslist")
-      .then((response) => {
-        setSportList(response.data.sport_list);
-      })
-
+    api.get("seeking4sports_api/sportslist").then((response) => {
+      setSportList(response.data.sport_list);
+    });
   }, [token, id]);
 
   function onFileChange(e) {
@@ -69,12 +71,8 @@ function EditActivity() {
     });
   }
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
-    editActivity(activity);
-  }
-
-  async function editActivity(activity) {
     let msgType = "success";
     const formData = new FormData();
 
@@ -98,10 +96,6 @@ function EditActivity() {
       });
 
     setFlashMessage(data.message, msgType);
-
-    if (msgType !== "error") {
-      navigate("/user/myactivities");
-    }
   }
 
   return (
@@ -113,10 +107,16 @@ function EditActivity() {
 
       <form onSubmit={submit} className={formStyles.form_container}>
         <div className={formStyles.preview_images}>
+          {(activity.image || preview) && (
             <img
-              src={preview ? URL.createObjectURL(preview) : `${process.env.REACT_APP_API}/images/sports/${activity.image}`}
-              alt="Sport_Image"
+              src={
+                preview
+                  ? URL.createObjectURL(preview)
+                  : `${process.env.REACT_APP_API}/images/sports/${activity.image}`
+              }
+              alt="Sport img"
             />
+          )}
         </div>
         <Input
           text="Sport Image"

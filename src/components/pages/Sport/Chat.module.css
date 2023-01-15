@@ -84,16 +84,25 @@
   border-radius: 50%;
 }
 
-.user_date_msg h4 {
+.user_date_msg {
+  width: 90%;
+}
+
+.user_date h4 {
   font-size: 1em;
   margin-bottom: 0.5em;
 }
 
-.user_date_msg p {
+.user_date p {
   font-size: 1em;
 }
 
-.user_date_msg {
+.user_date {
   display: flex;
   justify-content: space-between;
+}
+
+.text {
+  width: 80%;
+  word-wrap: break-word;
 }

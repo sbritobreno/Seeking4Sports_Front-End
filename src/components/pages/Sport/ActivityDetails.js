@@ -43,7 +43,7 @@ function ActivityDetails() {
     api.get(`/sport/${id}/members`).then((response) => {
       setMembers(response.data.members);
     });
-  }, [id, token, members]);
+  }, [id, token]);
 
   const renderMembers = () => {
     return members.map((member) => member.username + "; ");
@@ -78,6 +78,7 @@ function ActivityDetails() {
       data.message = "You are not logged in!";
 
     setFlashMessage(data.message, msgType);
+    setMembers([...members, user])
   }
 
   function toggleChat(value) {

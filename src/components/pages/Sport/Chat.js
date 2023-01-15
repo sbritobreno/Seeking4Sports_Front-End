@@ -11,29 +11,30 @@ function Chat({ toggleChat, sportId }) {
   const [members, setMembers] = useState([]);
   const style = { color: "#fff", fontSize: "0.8em", marginRight: "10px" };
 
-  // Scrolls to the end of the chat
-  const messagesEndRef = useRef(null)
+  //Scrolls to the end of the chat
+  const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView()
-  }
-  
+    messagesEndRef.current?.scrollIntoView();
+  };
+
   useEffect(() => {
     api.get(`/sport/${sportId}`).then((response) => {
       setActivity(response.data.activity);
-    });
-
-    api.get(`/message/sport/${sportId}`).then((response) => {
-      setMessages(response.data.data);
     });
 
     api.get(`/sport/${sportId}/members`).then((response) => {
       setMembers(response.data.members);
     });
 
-    scrollToBottom()
-    
-  }, [sportId, token, members]);
-  
+    scrollToBottom();
+  }, [sportId, token, messages]);
+
+  api.get(`/message/sport/${sportId}`).then((response) => {
+    console.log(response.data.data.length);
+    if (response.data.data.length > messages.length)
+      setMessages(response.data.data);
+  });
+
   function handleChange(e) {
     setNewMessage({ ...new_message, [e.target.name]: e.target.value });
   }
@@ -75,16 +76,20 @@ function Chat({ toggleChat, sportId }) {
                     alt="Profile img"
                   />
                 ))}
-              <div>
-                <div className={styles.user_date_msg}>
+              <div className={styles.user_date_msg}>
+                <div className={styles.user_date}>
                   {members
                     .filter((member) => member.id === msg.UserId)
                     .map((member) => (
-                      <h4>{member.username}</h4>
+                      <h4>{member.username || 'account deleted'}</h4>
                     ))}
-                  <p>{msg.createdAt.replace('T',' / ').replace('.000Z','')}</p>
+                  <p>
+                    {msg.createdAt.replace("T", " / ").replace(".000Z", "")}
+                  </p>
                 </div>
-                <p>{msg.message}</p>
+                <div className={styles.text}>
+                  <p>{msg.message}</p>
+                </div>
               </div>
               <div ref={messagesEndRef} />
             </div>
