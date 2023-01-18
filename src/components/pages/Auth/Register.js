@@ -54,6 +54,7 @@ function Register() {
           type="password"
           name="password"
           placeholder="Type your password"
+          autoComplete={"password"}
           handleOnChange={handleChange}
         />
         <Input
@@ -61,6 +62,7 @@ function Register() {
           type="password"
           name="confirmpassword"
           placeholder="Type your password again"
+          autoComplete={"confirmpassword"}
           handleOnChange={handleChange}
         />
         <input type="submit" value="Register" />

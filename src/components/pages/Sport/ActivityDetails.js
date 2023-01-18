@@ -40,10 +40,12 @@ function ActivityDetails() {
       setAdmin(response.data.admin);
     });
 
-    api.get(`/sport/${id}/members`).then((response) => {
-      setMembers(response.data.members);
-    });
-  }, [id, token]);
+  }, [id, token, members]);
+  
+  api.get(`/sport/${id}/members`).then((response) => {
+    if(members.length !== response.data.members.length)
+    setMembers(response.data.members);
+  });
 
   const renderMembers = () => {
     return members.map((member) => member.username + "; ");
@@ -59,26 +61,33 @@ function ActivityDetails() {
   async function joinGroup() {
     let msgType = "success";
 
-    const data = await api
-      .post(`/sport/joingroup/${id}`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token)}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => {
-        msgType = "error";
-        return err.response.data;
-      });
+    if (!token) {
+      msgType = "error";
+      const message = "You are not logged in!";
+      setFlashMessage(message, msgType);
+    } else {
+      const data = await api
+        .post(`/sport/joingroup/${id}`, {
+          headers: {
+            authorization: `Bearer ${JSON.parse(token)}` || null,
+          },
+        })
+        .then((response) => {
+          return response.data;
+        })
+        .catch((err) => {
+          msgType = "error";
+          return err.response.data;
+        });
 
-    if (data.message === "Access denied!")
-      data.message = "You are not logged in!";
+        if(data.message === "Access denied!"){
+          setFlashMessage("Something went wrong, trye again!", msgType);
+          setTimeout(window.location.reload(true), 7000);
+        }
 
-    setFlashMessage(data.message, msgType);
-    setMembers([...members, user])
+      setFlashMessage(data.message, msgType);
+      setMembers([...members, user]);
+    }
   }
 
   function toggleChat(value) {
@@ -91,7 +100,11 @@ function ActivityDetails() {
 
   return (
     <>
-      {chatOpened ? <Chat sportId={activity.id} toggleChat={toggleChat} /> : <></>}
+      {chatOpened ? (
+        <Chat sportId={activity.id} toggleChat={toggleChat} />
+      ) : (
+        <></>
+      )}
       {warningOpen ? (
         <WarningMessage
           toggleWarningMessage={toggleWarningMessage}

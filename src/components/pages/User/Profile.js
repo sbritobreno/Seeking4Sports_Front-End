@@ -9,7 +9,7 @@ import WarningMessage from "../Warning/WarningMessage";
 function Profile() {
   const [user, setUser] = useState({});
   const [preview, setPreview] = useState("");
-  const [token] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
 
   const [warningOpen, setWarningOpen] = useState(false);
@@ -82,7 +82,11 @@ function Profile() {
         <div className={formStyles.preview_images}>
           {(user.image || preview) && (
             <img
-              src={preview ? URL.createObjectURL(preview) : `${process.env.REACT_APP_API}/images/users/${user.image}`}
+              src={
+                preview
+                  ? URL.createObjectURL(preview)
+                  : `${process.env.REACT_APP_API}/images/users/${user.image}`
+              }
               alt="Profile img"
             />
           )}
@@ -144,6 +148,7 @@ function Profile() {
         />
         <input type="submit" name="button_1" value="Edit" />
         <button
+          type="button"
           className={styles.btn2}
           onClick={() => {
             setBtnText("Delete Account");

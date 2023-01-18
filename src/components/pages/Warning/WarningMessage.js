@@ -1,8 +1,8 @@
 import api from "../../../utils/api";
 import styles from "./WarningMessage.module.css";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Context } from "../../../context/UserContext";
 
 /* hooks */
 import useFlashMessage from "../../../hooks/useFlashMEssage";
@@ -14,7 +14,7 @@ function WarningMessage({
   sportId,
 }) {
   const [token] = useState(localStorage.getItem("token") || "");
-  const { deleteUserAccount } = useAuth();
+  const { deleteUserAccount } = useContext(Context);
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
 
@@ -55,7 +55,8 @@ function WarningMessage({
       });
 
     setFlashMessage(data.message, msgType);
-    navigate("/");
+    toggleWarningMessage(false);
+    navigate("/sport/myactivities");
   }
 
   async function leaveActivity() {
@@ -77,8 +78,7 @@ function WarningMessage({
       });
 
     setFlashMessage(data.message, msgType);
-    navigate('/');
-    
+    toggleWarningMessage(false);
   }
 
   return (

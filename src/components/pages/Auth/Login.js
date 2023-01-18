@@ -46,6 +46,7 @@ function Login() {
           type="email"
           name="email"
           placeholder="Type your email"
+          autoComplete={"user-email"}
           handleOnChange={handleChange}
         />
         <Input
@@ -53,6 +54,7 @@ function Login() {
           type="password"
           name="password"
           placeholder="Type your password"
+          autoComplete={"current-password"}
           handleOnChange={handleChange}
         />
         <input type="submit" value="Login" />

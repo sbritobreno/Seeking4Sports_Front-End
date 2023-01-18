@@ -37,7 +37,7 @@ function MyActivities() {
       .then((response) => {
         setActivities(response.data.sports);
       });
-  }, [token]);
+  }, [token, warningOpen]);
 
   function toggleChat(value, sportId) {
     setActivityId(sportId);

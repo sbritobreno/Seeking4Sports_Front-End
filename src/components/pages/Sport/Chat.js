@@ -6,7 +6,7 @@ import { FaComments } from "react-icons/fa";
 function Chat({ toggleChat, sportId }) {
   const [messages, setMessages] = useState([]);
   const [activity, setActivity] = useState({});
-  const [new_message, setNewMessage] = useState("");
+  const [new_message, setNewMessage] = useState({});
   const [token] = useState(localStorage.getItem("token"));
   const [members, setMembers] = useState([]);
   const style = { color: "#fff", fontSize: "0.8em", marginRight: "10px" };
@@ -30,15 +30,14 @@ function Chat({ toggleChat, sportId }) {
   }, [sportId, token, messages]);
 
   api.get(`/message/sport/${sportId}`).then((response) => {
-    console.log(response.data.data.length);
     if (response.data.data.length > messages.length)
       setMessages(response.data.data);
   });
 
   function handleChange(e) {
-    setNewMessage({ ...new_message, [e.target.name]: e.target.value });
+    setNewMessage({ [e.target.name]: e.target.value });
   }
-
+  
   async function handleSubmit(e) {
     e.preventDefault();
     await api
@@ -50,8 +49,8 @@ function Chat({ toggleChat, sportId }) {
         return err.response.data;
       });
 
-    setNewMessage("");
-    e.target.reset();
+      setNewMessage({});
+      e.target.reset();
   }
 
   return (
@@ -65,14 +64,15 @@ function Chat({ toggleChat, sportId }) {
           {activity.group_name}
         </h1>
         <div className={styles.chat_box}>
-          {messages.map((msg) => (
-            <div className={styles.message}>
+          {messages.map((msg, key) => (
+            <div className={styles.message} key={key}>
               {members
                 .filter((member) => member.id === msg.UserId)
-                .map((member) => (
+                .map((member, key) => (
                   <img
                     className={styles.user_image}
                     src={`${process.env.REACT_APP_API}/images/users/${member.image}`}
+                    key={key}
                     alt="Profile img"
                   />
                 ))}
@@ -80,8 +80,8 @@ function Chat({ toggleChat, sportId }) {
                 <div className={styles.user_date}>
                   {members
                     .filter((member) => member.id === msg.UserId)
-                    .map((member) => (
-                      <h4>{member.username || 'account deleted'}</h4>
+                    .map((member, key) => (
+                      <h4 key={key}>{member.username || "account deleted"}</h4>
                     ))}
                   <p>
                     {msg.createdAt.replace("T", " / ").replace(".000Z", "")}

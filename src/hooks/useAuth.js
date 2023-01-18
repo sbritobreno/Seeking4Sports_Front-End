@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useFlashMessage from "./useFlashMEssage";
 
 export default function useAuth() {
-  const [token] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token"));
   const [authenticated, setAuthenticated] = useState(false);
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function useAuth() {
       api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
       setAuthenticated(true);
     }
-  }, []);
+  }, [token]);
 
   async function register(user) {
     let msgText = "You are now registered!";
