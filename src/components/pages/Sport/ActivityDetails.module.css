@@ -1,4 +1,6 @@
 .activity_details_container {
+  max-width: 300px;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -10,9 +12,7 @@
 .activity_details_subcontainer {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   text-align: start;
-  margin-inline: 35%;
 }
 
 .activity_details_container p {

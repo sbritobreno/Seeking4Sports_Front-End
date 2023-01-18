@@ -2,7 +2,6 @@ import api from "../../../utils/api";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Home.module.css";
-import { FaFilter } from "react-icons/fa";
 
 function Home() {
   const [activities, setActivities] = useState([]);
@@ -10,7 +9,6 @@ function Home() {
   const [searchfieldLocation, setSearchfieldLocation] = useState("");
   const [searchfieldDay, setSearchfieldDay] = useState("");
   const filteredSports = searchFilter();
-  const style = { color: "#2d1b42", fontSize: "1em", marginRight: "0.2em" };
 
   function searchFilter() {
     // filter by sport
@@ -58,7 +56,6 @@ function Home() {
         <p>See details of each activity and their members.</p>
       </div>
       <div className={styles.search_box}>
-        <FaFilter style={style} />
         <input
           className={styles.search}
           type="search"
@@ -72,7 +69,6 @@ function Home() {
           onChange={onSearchChangeLocation}
         />
         <input
-          style={{ marginRight: "2em" }}
           className={styles.search}
           type="search"
           placeholder="Search by Day"
@@ -91,7 +87,7 @@ function Home() {
               ></div>
               <h3>{sport.sport}</h3>
               <p>
-                <span className="bold">Group: </span> {sport.group_name}
+                <span className="bold">Group name: </span> {sport.group_name}
               </p>
               <p>
                 <span className="bold">Date: </span> {sport.date} {sport.time}

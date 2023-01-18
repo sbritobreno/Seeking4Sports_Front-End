@@ -1,4 +1,6 @@
 .navbar_container {
+  min-width: 800px;
+  margin: 0 auto;
   position: sticky;
   top: 0;
   right: 0;
