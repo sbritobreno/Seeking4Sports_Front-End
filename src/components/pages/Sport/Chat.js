@@ -43,6 +43,7 @@ function Chat({ toggleChat, sportId }) {
     await api
       .post(`/message/new/sport/${sportId}`, new_message)
       .then((response) => {
+        setNewMessage({});
         return response.data;
       })
       .catch((err) => {

@@ -12,6 +12,7 @@ function WarningMessage({
   btnText,
   warningMessage,
   sportId,
+  memberId,
 }) {
   const [token] = useState(localStorage.getItem("token") || "");
   const { deleteUserAccount } = useContext(Context);
@@ -29,9 +30,9 @@ function WarningMessage({
       case "Leave Activity":
         leaveActivity();
         break;
-      // case "Remove Member":
-      //   removeMember();
-      //   break;
+      case "Remove Member":
+        removeMember();
+        break;
       default:
     }
   }
@@ -67,6 +68,27 @@ function WarningMessage({
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
           "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        msgType = "error";
+        return err.response.data;
+      });
+
+    setFlashMessage(data.message, msgType);
+    toggleWarningMessage(false);
+  }
+
+  async function removeMember() {
+    let msgType = "success";
+
+    const data = await api
+      .delete(`/sport/${sportId}/removemember/${memberId}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
         },
       })
       .then((response) => {

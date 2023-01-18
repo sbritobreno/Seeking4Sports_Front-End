@@ -74,10 +74,6 @@
   background-color: #2d1b42;
 }
 
-.new_message_icon:hover {
-  background-color: #1c8a42;
-}
-
 .activity_images img {
   max-height: 200px;
   border-radius: 1em;
@@ -85,4 +81,30 @@
 
 .activity_details_container button:hover {
   background-color: #1c8a42;
+}
+
+.detail_block_members {
+  display: flex;
+  justify-content: left; 
+  flex-wrap: wrap;
+}
+
+.detail_member {
+  border-radius: 1em;
+  text-align: center;
+  margin: 0.3em;
+}
+
+.detail_member:hover {
+  cursor: pointer;
+}
+
+.detail_member img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.detail_member p {
+  max-width: px;
 }

@@ -14,6 +14,7 @@ function ActivityDetails() {
   const { setFlashMessage } = useFlashMessage();
   const [activity, setActivity] = useState({});
   const [admin, setAdmin] = useState({});
+  const [memberClicked, setMemberSelected] = useState({});
   const [members, setMembers] = useState([]);
   const [warningOpen, setWarningOpen] = useState(false);
   const [chatOpened, setChatOpened] = useState(false);
@@ -39,17 +40,12 @@ function ActivityDetails() {
     api.get(`/sport/${id}/admin`).then((response) => {
       setAdmin(response.data.admin);
     });
-
   }, [id, token, members]);
-  
-  api.get(`/sport/${id}/members`).then((response) => {
-    if(members.length !== response.data.members.length)
-    setMembers(response.data.members);
-  });
 
-  const renderMembers = () => {
-    return members.map((member) => member.username + "; ");
-  };
+  api.get(`/sport/${id}/members`).then((response) => {
+    if (members.length !== response.data.members.length)
+      setMembers(response.data.members);
+  });
 
   function isMember() {
     // default return value is false
@@ -80,10 +76,10 @@ function ActivityDetails() {
           return err.response.data;
         });
 
-        if(data.message === "Access denied!"){
-          setFlashMessage("Something went wrong, trye again!", msgType);
-          setTimeout(window.location.reload(true), 7000);
-        }
+      if (data.message === "Access denied!") {
+        setFlashMessage("Something went wrong, trye again!", msgType);
+        setTimeout(window.location.reload(true), 7000);
+      }
 
       setFlashMessage(data.message, msgType);
       setMembers([...members, user]);
@@ -96,6 +92,18 @@ function ActivityDetails() {
 
   function toggleWarningMessage(value) {
     setWarningOpen(value);
+  }
+
+  function handleOnMemberClick(memberSelected) {
+    let msgType = "error";
+    let msg = "Admin can not be removed from the group!";
+    if (admin.email === memberSelected.email) {
+      setFlashMessage(msg, msgType);
+    } else {
+      setMemberSelected(memberSelected);
+      toggleWarningMessage(true);
+      setBtnText("Remove Member");
+    }
   }
 
   return (
@@ -111,6 +119,7 @@ function ActivityDetails() {
           btnText={btnText}
           warningMessage={warningMessage}
           sportId={activity.id}
+          memberId={memberClicked.id}
         />
       ) : (
         <></>
@@ -154,7 +163,25 @@ function ActivityDetails() {
             </div>
             <div className={styles.detail_block}>
               <span className="bold">Members Joined:</span>
-              <p>{renderMembers()}</p>
+              <div className={styles.detail_block_members}>
+                {members.map((member, key) => (
+                  <div
+                    key={key}
+                    className={styles.detail_member}
+                    onClick={
+                      admin.email === user.email
+                        ? () => handleOnMemberClick(member)
+                        : undefined
+                    }
+                  >
+                    <img
+                      src={`${process.env.REACT_APP_API}/images/users/${member.image}`}
+                      alt="user img"
+                    />
+                    <p>{member.username}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className={styles.detail_block}>
               <span className="bold">Total Members:</span>

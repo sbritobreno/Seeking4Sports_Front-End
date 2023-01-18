@@ -80,7 +80,7 @@ function Home() {
           filteredSports.map((sport) => (
             <div className={styles.sport_card} key={sport.id}>
               <div
-                style={{
+                style={{ 
                   backgroundImage: `url(${process.env.REACT_APP_API}/images/sports/${sport.image})`,
                 }}
                 className={styles.sport_card_image}
