@@ -19,15 +19,13 @@ export default function useAuth() {
   }, [token]);
 
   async function register(user) {
-    let msgText = "You are now registered!";
+    let msgText = `A verification email was sent to ${user.email}!`;
     let msgType = "success";
 
     try {
-      const data = await api.post("/user/register", user).then((response) => {
+      await api.post("/user/register", user).then((response) => {
         return response.data;
       });
-
-      await authUser(data);
     } catch (error) {
       msgText = error.response.data.message;
       msgType = "error";
@@ -42,9 +40,9 @@ export default function useAuth() {
 
     try {
       const data = await api.post("/user/login", user).then((response) => {
-        msgText = response.data.message
+        msgText = response.data.message;
         return response.data;
-      })
+      });
 
       await authUser(data);
     } catch (error) {
@@ -98,7 +96,7 @@ export default function useAuth() {
     localStorage.removeItem("token");
     api.defaults.headers.Authorization = undefined;
     navigate("/");
-    
+
     setFlashMessage(msgText, msgType);
   }
 
