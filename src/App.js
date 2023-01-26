@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 /* components */
 import Navbar from "./components/layout/Navbar";
+import MobileNavbar from "./components/layout/MobileNavbar";
 import Footer from "./components/layout/Footer";
 import Container from "./components/layout/Container";
 import Message from "./components/layout/Message";
@@ -22,10 +24,12 @@ import EditActivity from "./components/pages/Sport/EditActivity";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
     <Router forceRefresh={true}>
       <UserProvider>
-        <Navbar />
+        {isMobile ? <MobileNavbar/> : <Navbar/>}
         <Message />
         <Container>
           <Routes>

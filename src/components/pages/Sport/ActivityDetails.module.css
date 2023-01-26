@@ -64,16 +64,6 @@
   color: #fff;
 }
 
-.new_message_icon {
-  flex: 0 1 auto;
-  visibility: visible;
-  width: 70px;
-  height: 60px;
-  margin-left: auto;
-  border-radius: 40% 0 40% 40%;
-  background-color: #2d1b42;
-}
-
 .activity_images img {
   max-height: 200px;
   border-radius: 1em;
