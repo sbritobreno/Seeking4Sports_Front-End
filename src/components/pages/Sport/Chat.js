@@ -29,29 +29,38 @@ function Chat({ toggleChat, sportId }) {
     scrollToBottom();
   }, [sportId, token, messages]);
 
-  api.get(`/message/sport/${sportId}`).then((response) => {
-    if (response.data.data.length > messages.length)
-      setMessages(response.data.data);
-  });
+  api
+    .get(`/message/sport/${sportId}`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+      },
+    })
+    .then((response) => {
+      if (response.data.data.length > messages.length)
+        setMessages(response.data.data);
+    });
 
   function handleChange(e) {
     setNewMessage({ [e.target.name]: e.target.value });
   }
-  
+
   async function handleSubmit(e) {
     e.preventDefault();
     await api
-      .post(`/message/new/sport/${sportId}`, new_message)
+      .post(`/message/new/sport/${sportId}`, new_message, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
       .then((response) => {
-        setNewMessage({});
         return response.data;
       })
       .catch((err) => {
         return err.response.data;
       });
 
-      setNewMessage({});
-      e.target.reset();
+    e.target.reset();
+    setNewMessage({});
   }
 
   return (

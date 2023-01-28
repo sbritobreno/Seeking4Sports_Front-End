@@ -10,7 +10,7 @@ import useFlashMessage from "../../../hooks/useFlashMEssage";
 
 function ActivityDetails() {
   const [user, setUser] = useState({});
-  const [token] = useState(localStorage.getItem("token"));
+  const [token] = useState(localStorage.getItem("token") || "");
   const { setFlashMessage } = useFlashMessage();
   const [activity, setActivity] = useState({});
   const [admin, setAdmin] = useState({});
@@ -63,9 +63,9 @@ function ActivityDetails() {
       setFlashMessage(message, msgType);
     } else {
       const data = await api
-        .post(`/sport/joingroup/${id}`, {
+        .post(`/sport/joingroup/${id}`,user , {
           headers: {
-            authorization: `Bearer ${JSON.parse(token)}` || null,
+            Authorization: `Bearer ${JSON.parse(token)}`,
           },
         })
         .then((response) => {
@@ -75,11 +75,6 @@ function ActivityDetails() {
           msgType = "error";
           return err.response.data;
         });
-
-      if (data.message === "Access denied!") {
-        setFlashMessage("Something went wrong, trye again!", msgType);
-        setTimeout(window.location.reload(true), 7000);
-      }
 
       setFlashMessage(data.message, msgType);
       setMembers([...members, user]);

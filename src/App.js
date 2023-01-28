@@ -24,7 +24,7 @@ import EditActivity from "./components/pages/Sport/EditActivity";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isMobile = useMediaQuery({ maxWidth: 910 });
 
   return (
     <Router forceRefresh={true}>

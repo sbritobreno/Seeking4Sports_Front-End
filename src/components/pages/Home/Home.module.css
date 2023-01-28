@@ -46,6 +46,7 @@
   padding: 10px;
   text-align: center;
   background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
 }
 
 .sport_card_image {
