@@ -10,7 +10,7 @@ import useFlashMessage from "../../../hooks/useFlashMEssage";
 
 function ActivityDetails() {
   const [user, setUser] = useState({});
-  const [token] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token"));
   const { setFlashMessage } = useFlashMessage();
   const [activity, setActivity] = useState({});
   const [admin, setAdmin] = useState({});
